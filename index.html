@@ -23,28 +23,15 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
+  cursor:auto;
   font-family:'Barlow',sans-serif;
   background:var(--off);
   color:var(--ink);
   overflow-x:hidden;
-  cursor:none;
+  
 }
  
 /* ─── CURSOR ──────────────────────────────────────── */
-#c-dot{
-  position:fixed;z-index:9999;pointer-events:none;
-  width:8px;height:8px;border-radius:50%;
-  background:var(--fire);transform:translate(-50%,-50%);
-  transition:transform .1s;
-}
-#c-ring{
-  position:fixed;z-index:9998;pointer-events:none;
-  width:32px;height:32px;border-radius:50%;
-  border:1.5px solid var(--ink);opacity:.25;
-  transform:translate(-50%,-50%);
-  transition:all .18s cubic-bezier(.22,1,.36,1);
-}
- 
 /* ─── NAV ─────────────────────────────────────────── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:200;
@@ -82,11 +69,11 @@ nav.bg{
   font-weight:700;font-size:.82rem;letter-spacing:.06em;
   text-transform:uppercase;
   padding:9px 20px;border-radius:4px;
-  text-decoration:none;cursor:none;
+  text-decoration:none;
   transition:background .25s,transform .25s;
 }
 .nav-pill:hover{background:var(--fire);transform:translateY(-1px)}
-.ham{display:none;cursor:none;flex-direction:column;gap:5px;padding:4px}
+.ham{display:none;flex-direction:column;gap:5px;padding:4px}
 .ham span{display:block;width:22px;height:1.5px;background:var(--ink);transition:.3s}
  
 /* ─── HERO ────────────────────────────────────────── */
@@ -121,9 +108,18 @@ nav.bg{
 .hero-logo-lockup{
   margin-bottom:32px;
   width:100%;
+  background:transparent;
+  border-radius:0;
+  padding:0;
 }
 .hero-logo-lockup img{
-  width:100%;max-width:100%;height:auto;object-fit:contain;display:block;
+  width:100%;max-width:100%;height:auto;
+  object-fit:contain;display:block;
+  mix-blend-mode:multiply;
+}
+.hero-logo-lockup img{
+  width:100%;max-width:100%;height:auto;
+  object-fit:contain;display:block;
 }
  
 .hero-sub{
@@ -142,26 +138,6 @@ nav.bg{
   color:transparent;
 }
 .hero-cta-row{display:flex;align-items:center;justify-content:flex-start;gap:20px;flex-wrap:wrap}
- 
-/* ── YouTube embed ── */
-.hero-logo-lockup{
-  margin-bottom:32px;
-  width:100%;
-}
-.yt-embed-wrap{
-  position:relative;
-  width:100%;
-  padding-bottom:177.78%; /* 9:16 vertical shorts ratio */
-  border-radius:16px;
-  overflow:hidden;
-  background:#000;
-  box-shadow:0 24px 60px rgba(0,0,0,0.18);
-}
-.yt-embed-wrap iframe{
-  position:absolute;
-  inset:0;width:100%;height:100%;
-  border:none;
-}
  
 /* ── What we offer block ── */
 .carousel-offer{
@@ -211,7 +187,7 @@ nav.bg{
   font-weight:700;font-size:.9rem;letter-spacing:.08em;
   text-transform:uppercase;
   padding:13px 28px;border-radius:4px;
-  text-decoration:none;cursor:none;
+  text-decoration:none;
   transition:all .3s cubic-bezier(.22,1,.36,1);
 }
 .btn-fire:hover{background:var(--ink);transform:translateY(-2px);box-shadow:0 10px 30px rgba(245,83,10,.25)}
@@ -220,7 +196,7 @@ nav.bg{
   text-transform:uppercase;color:var(--ink);
   text-decoration:none;
   display:flex;align-items:center;gap:6px;
-  opacity:.5;transition:opacity .2s;cursor:none;
+  opacity:.5;transition:opacity .2s;
 }
 .btn-text-link:hover{opacity:1}
  
@@ -659,7 +635,7 @@ nav.bg{
 .phone-dot{
   width:6px;height:6px;border-radius:50%;
   background:rgba(12,12,12,.18);transition:all .35s;
-  cursor:none;
+  
 }
 .phone-dot.on{background:var(--fire);width:20px;border-radius:3px}
  
@@ -695,7 +671,7 @@ nav.bg{
   padding:22px 28px;
   border-right:1px solid var(--rule);
   display:flex;flex-direction:column;gap:4px;
-  transition:background .3s;cursor:none;
+  transition:background .3s;
 }
 .hs-item:last-child{border-right:none}
 .hs-item:hover{background:var(--ink)}
@@ -773,7 +749,7 @@ section{padding:100px 48px}
   gap:0;
   padding:32px 0;
   border-bottom:1px solid var(--rule);
-  cursor:none;
+  
   transition:background .3s;
   position:relative;
   overflow:hidden;
@@ -867,7 +843,7 @@ section{padding:100px 48px}
   display:grid;grid-template-columns:48px 1fr;
   gap:20px;padding:28px 0;
   border-bottom:1px solid var(--rule);
-  cursor:none;
+  
 }
 .hw:first-child{border-top:1px solid var(--rule)}
 .hw:hover .hw-n{color:var(--fire)}
@@ -915,7 +891,7 @@ section{padding:100px 48px}
   background:rgba(245,240,232,.05);
   border-radius:4px;padding:13px 16px;
   border-left:2px solid transparent;
-  transition:border-color .3s,background .3s;cursor:none;
+  transition:border-color .3s,background .3s;
 }
 .hrp-li:hover{border-color:var(--fire);background:rgba(245,83,10,.08)}
 .hrp-li-dot{width:6px;height:6px;border-radius:50%;background:var(--fire);flex-shrink:0}
@@ -935,7 +911,7 @@ section{padding:100px 48px}
 .wr{
   background:rgba(0,0,0,.12);border-radius:6px;
   padding:24px 26px;display:flex;gap:16px;
-  transition:background .3s,transform .3s;cursor:none;
+  transition:background .3s,transform .3s;
 }
 .wr:hover{background:rgba(0,0,0,.22);transform:translateX(8px)}
 .wr-icon{
@@ -966,7 +942,7 @@ section{padding:100px 48px}
 .tc{
   background:var(--off);
   padding:40px 36px;
-  transition:background .35s;cursor:none;
+  transition:background .35s;
 }
 .tc:hover{background:var(--ink)}
 .tc:hover .tc-quote,.tc:hover .tc-text,.tc:hover .tc-name,.tc:hover .tc-role{color:rgba(245,240,232,.9) !important}
@@ -1040,7 +1016,7 @@ section{padding:100px 48px}
   font-weight:700;font-size:.95rem;letter-spacing:.1em;
   text-transform:uppercase;
   padding:16px 36px;border-radius:4px;
-  text-decoration:none;cursor:none;
+  text-decoration:none;
   transition:all .35s cubic-bezier(.22,1,.36,1);
   box-shadow:0 0 0 0 rgba(245,83,10,.4);
 }
@@ -1055,7 +1031,7 @@ section{padding:100px 48px}
   font-size:.95rem;font-weight:500;
   padding:16px 36px;border-radius:4px;
   border:1px solid rgba(245,240,232,.15);
-  text-decoration:none;cursor:none;
+  text-decoration:none;
   transition:all .3s;
 }
 .btn-cta-ghost:hover{border-color:rgba(245,240,232,.4);color:#fff}
@@ -1082,7 +1058,7 @@ footer{
   border:1px solid rgba(245,240,232,.1);
   display:flex;align-items:center;justify-content:center;
   font-size:.85rem;color:rgba(245,240,232,.35);
-  text-decoration:none;cursor:none;transition:all .25s;
+  text-decoration:none;transition:all .25s;
 }
 .ft-s:hover{background:var(--fire);border-color:var(--fire);color:#fff}
 .ft-col{}
@@ -1158,13 +1134,10 @@ footer{
 </head>
 <body>
  
-<div id="c-dot"></div>
-<div id="c-ring"></div>
- 
 <!-- ── NAV ─────────────────────────────────────────── -->
 <nav id="nav" class="bg">
   <a href="#" class="nav-logo">
-    <img src="https://i.ibb.co/Kxkyd1NK/file-00000000225071fabf0fa328e2e2fa28.png" alt="Seen & Sold" style="height:36px;width:auto;object-fit:contain;display:block;"/>
+    <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Seen & Sold" style="height:36px;width:auto;object-fit:contain;display:block;"/>
   </a>
  
   <ul class="nav-menu" id="nm">
@@ -1190,7 +1163,7 @@ footer{
     <!-- LEFT: Text + CTA -->
     <div class="hero-left">
       <div class="hero-logo-lockup">
-        <img src="https://drive.google.com/uc?export=view&id=18d0Pq3YnETa7u57FsZyYHb0oka79nlk_" alt="Seen & Sold"/>
+        <img src="https://i.postimg.cc/T3D8mR6b/1000065010.png" alt="Seen & Sold"/>
       </div>
       <p class="hero-sub">
         RUN YOUR<br/><span class="fire">BUSINESS</span><br/><span class="stroke">FROM YOUR</span><br/>MOBILE.
@@ -1797,7 +1770,7 @@ footer{
       <span class="outline">&amp; SOLD?</span>
     </h2>
     <div class="cta-row r d2">
-      <a href="https://wa.me/?text=Hi!+I+want+to+grow+my+business+with+Seen+%26+Sold." class="btn-cta-fire" target="_blank">
+      <a href="https://wa.me/919975454450?text=Hi!+I+found+Seen+%26+Sold+and+I%27d+love+to+grow+my+business." class="btn-cta-fire" target="_blank">
         💬 Chat on WhatsApp
       </a>
       <a href="/cdn-cgi/l/email-protection#8ee6ebe2e2e1cefdebebe0efe0eafde1e2eafde1e2fbfae7e1e0fda0ede1e3" class="btn-cta-ghost">
@@ -1812,7 +1785,7 @@ footer{
   <div class="ft">
     <div class="ft-brand">
       <a href="#" class="ft-logo">
-        <img src="https://i.ibb.co/Kxkyd1NK/file-00000000225071fabf0fa328e2e2fa28.png" alt="Seen & Sold" style="height:36px;width:auto;object-fit:contain;filter:brightness(0) invert(1);"/>
+        <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Seen & Sold" style="height:36px;width:auto;object-fit:contain;filter:brightness(0) invert(1);"/>
       </a>
       <p class="ft-tagline">Making local shops and business owners get the attention and customers they truly deserve.</p>
       <div class="ft-socials">
@@ -1860,24 +1833,6 @@ footer{
 </footer>
  
 <script>
-// Cursor
-const dot = document.getElementById('c-dot');
-const ring = document.getElementById('c-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  dot.style.left=mx+'px';dot.style.top=my+'px';
-});
-(function tick(){
-  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
-  ring.style.left=rx+'px';ring.style.top=ry+'px';
-  requestAnimationFrame(tick);
-})();
-document.querySelectorAll('a,button,.svc-row,.wr,.tc,.hs-item,.phone-slide').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ring.style.transform='translate(-50%,-50%) scale(2)';ring.style.borderColor='var(--fire)';ring.style.opacity='.4'});
-  el.addEventListener('mouseleave',()=>{ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='var(--ink)';ring.style.opacity='.25'});
-});
- 
 // Nav
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('bg',scrollY>10));
