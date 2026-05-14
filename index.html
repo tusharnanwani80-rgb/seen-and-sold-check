@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- STRICT MOBILE VIEWPORT: Prevents iOS auto-zoom on forms and locks layout scale -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 <title>Seen & Sold | Tech for Local Shops & Clinics</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -38,11 +39,16 @@
 /* ─── RESET & BASE ────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
-body {
+/* Force body and html to never allow horizontal scroll */
+html, body {
   background-color: var(--bg-cream); color: var(--text-dark);
   font-family: var(--font-main); overflow-x: hidden;
   -webkit-font-smoothing: antialiased; line-height: 1.6;
+  width: 100%; margin: 0; padding: 0;
 }
+
+/* THE IRONCLAD WRAPPER: Prevents blobs and 3D phones from expanding document width */
+.site-wrapper { overflow: hidden; width: 100%; position: relative; }
 
 /* ─── DECORATIVE BLOBS ────────────────────────────── */
 .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.4; z-index: 0; pointer-events: none; }
@@ -116,11 +122,11 @@ nav {
 
 /* ─── HERO SECTION ────────────────────────────────── */
 #hero {
-  padding: 160px 24px 80px; min-height: 100vh; position: relative; z-index: 1;
+  padding: 180px 24px 80px; min-height: 100vh; position: relative; z-index: 1;
   display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; max-width: 1300px; margin: 0 auto;
 }
 .hero-content { display: flex; flex-direction: column; align-items: flex-start; text-align: left; position: relative; z-index: 2;}
-.hero-title { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; margin-bottom: 24px; line-height: 1.1; }
+.hero-title { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; margin-bottom: 24px; line-height: 1.1; }
 .hero-title .highlight { position: relative; display: inline-block; z-index: 1; color: var(--brand-teal); }
 .hero-title .highlight::after {
   content: ''; position: absolute; bottom: 8px; left: -5px; right: -5px; height: 16px;
@@ -129,7 +135,7 @@ nav {
 .hero-subtitle { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; max-width: 500px; font-weight: 500; }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
-/* ─── 3D PHONE CAROUSEL (SOFT & ROUNDED) ──────────── */
+/* ─── 3D PHONE CAROUSEL ───────────────────────────── */
 .showcase-stage {
   width: 100%; position: relative; height: 600px; perspective: 1500px;
   display: flex; align-items: center; justify-content: center; z-index: 2;
@@ -140,16 +146,16 @@ nav {
 }
 .phone-slide:active { cursor: grabbing; }
 
-/* Visible Before/After States */
+/* Visible Before/After States - Adjusted for desktop */
 .phone-slide.state-active { transform: translateX(0) scale(1); z-index: 10; opacity: 1; filter: blur(0); }
 .phone-slide.state-prev { transform: translateX(-220px) scale(0.85) rotateY(20deg); z-index: 5; opacity: 0.85; filter: blur(1px); }
 .phone-slide.state-next { transform: translateX(220px) scale(0.85) rotateY(-20deg); z-index: 5; opacity: 0.85; filter: blur(1px); }
 .phone-slide.state-far-prev { transform: translateX(-400px) scale(0.65) rotateY(35deg); z-index: 1; opacity: 0; pointer-events: none; }
 .phone-slide.state-far-next { transform: translateX(400px) scale(0.65) rotateY(-35deg); z-index: 1; opacity: 0; pointer-events: none; }
 
-/* White/Cream Phone Frame */
+/* Phone Frame & Screen */
 .phone-frame {
-  width: 280px; height: 570px; position: relative;
+  width: 100%; height: 570px; position: relative;
   background: #FFFFFF; border-radius: 50px; padding: 12px;
   box-shadow: 0 30px 60px rgba(16, 59, 70, 0.15), inset 0 0 0 2px #F0E8E2;
 }
@@ -159,13 +165,16 @@ nav {
 }
 .phone-notch { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 80px; height: 26px; background: #FFFFFF; border-radius: 20px; z-index: 50; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
-/* Playful UIs inside Phones */
+/* Playful UIs */
 .ui-base { height: 100%; display: flex; flex-direction: column; padding-top: 48px; background: var(--bg-cream); position: relative; }
 .ui-status { position: absolute; top: 0; left: 0; right: 0; height: 48px; display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; font-size: 11px; font-weight: 700; color: var(--text-dark); z-index: 40; }
 
-/* UI 1: Dashboard */
+/* Image App Logo inside Status Bar */
+.ui-app-logo { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; }
+.ui-app-logo img { height: 18px; width: auto; object-fit: contain; }
+
+/* Mockup CSS (Dash, Cart, Doc, Fees, Rev) */
 .ui-dash { background: #FFF; padding: 48px 20px 20px; }
-.ui-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
 .ui-dash h3 { font-size: 22px; margin-bottom: 20px; }
 .ui-stats-row { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
 .ui-stat-box { flex: 1; background: var(--card-mint); padding: 16px 12px; border-radius: 20px; text-align: center; }
@@ -174,14 +183,12 @@ nav {
 .ui-stat-label { font-size: 10px; font-weight: 600; color: var(--text-muted); }
 .ui-chart-area { background: var(--bg-cream); border-radius: 24px; padding: 20px; height: 180px; position: relative; display: flex; flex-direction: column; justify-content: flex-end; }
 
-/* UI 2: WhatsApp Cart */
 .ui-wa-cart { background: var(--card-orange); }
 .ui-wa-cart-inner { background: #FFF; margin: 48px 16px 16px; border-radius: 32px; padding: 20px; flex: 1; display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
 .ui-wa-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 2px dashed #F0E8E2; }
 .ui-wa-item h4 { font-size: 14px; margin-bottom: 4px; }
 .ui-wa-btn { margin-top: auto; background: #25D366; color: #FFF; border-radius: 50px; padding: 16px; text-align: center; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); }
 
-/* UI 3: Doctor Appointment */
 .ui-doc { background: var(--card-mint); }
 .ui-doc-top { padding: 48px 20px 20px; text-align: center; }
 .ui-doc-av { width: 64px; height: 64px; border-radius: 50%; background: #FFF; margin: 0 auto 12px; border: 4px solid var(--brand-teal); display: flex; align-items: center; justify-content: center; font-size: 24px; }
@@ -191,7 +198,6 @@ nav {
 .ui-cal-day.active { background: var(--brand-teal); color: #FFF; }
 .ui-doc-slot { background: var(--card-mint); padding: 12px; border-radius: 12px; text-align: center; font-weight: 700; font-size: 12px; color: var(--brand-teal); margin-bottom: 8px; }
 
-/* UI 4: Fees Management (TTC Style) */
 .ui-fees { background: var(--card-purple); }
 .ui-fees-head { padding: 48px 20px 20px; }
 .ui-fees-card { background: #FFF; margin: 0 16px 16px; border-radius: 24px; padding: 20px; }
@@ -199,7 +205,6 @@ nav {
 .ui-fees-amt { font-size: 32px; font-weight: 800; color: var(--text-dark); line-height: 1; margin-bottom: 4px; }
 .ui-fees-btn { background: var(--brand-teal); color: #FFF; padding: 14px; border-radius: 16px; text-align: center; font-weight: 700; font-size: 12px; margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 6px;}
 
-/* UI 5: Review Generator */
 .ui-rev { background: var(--brand-pink); }
 .ui-rev-inner { background: #FFF; margin: 48px 16px 16px; border-radius: 32px; padding: 24px; flex: 1; text-align: center; display: flex; flex-direction: column; justify-content: center; }
 .ui-stars { display: flex; justify-content: center; gap: 8px; font-size: 28px; margin: 20px 0; }
@@ -214,16 +219,16 @@ nav {
 /* ─── METRICS / STATS (Progress Rings) ────────────── */
 #metrics { padding: 40px 24px; background: var(--bg-white); border-radius: 40px; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px; position: relative; z-index: 2; box-shadow: var(--shadow-float); }
 .metric-card { display: flex; align-items: center; gap: 20px; }
-.progress-ring { width: 70px; height: 70px; border-radius: 50%; background: conic-gradient(var(--brand-mint) 80%, #F0E8E2 0); display: flex; align-items: center; justify-content: center; position: relative; }
+.progress-ring { width: 70px; height: 70px; border-radius: 50%; background: conic-gradient(var(--brand-mint) 80%, #F0E8E2 0); display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0;}
 .progress-ring::before { content: ''; width: 54px; height: 54px; border-radius: 50%; background: var(--bg-white); position: absolute; }
 .pr-inner { position: relative; font-weight: 800; font-size: 1.2rem; color: var(--brand-teal); }
-.metric-text h4 { font-size: 1.1rem; color: var(--brand-teal); margin-bottom: 4px; }
+.metric-text h4 { font-size: 1.1rem; color: var(--brand-teal); margin-bottom: 4px; line-height: 1.2;}
 .metric-text p { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
 
 /* ─── CHUNKY SERVICES GRID ────────────────────────── */
 #services { padding: 120px 24px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
 .sec-head { text-align: center; margin-bottom: 60px; }
-.sec-title { font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 16px; color: var(--brand-teal); }
+.sec-title { font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 16px; color: var(--brand-teal); }
 .sec-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 500; }
 
 .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
@@ -233,30 +238,26 @@ nav {
 }
 .chunky-card:hover { transform: translateY(-8px); }
 
-/* Card Variations */
 .card-1 { background: var(--card-teal); color: #FFF; }
 .card-1 h3 { color: #FFF; }
 .card-1 .cc-icon { background: rgba(255,255,255,0.1); color: #FFF; }
 .card-1 .btn-chunky { background: var(--brand-orange); color: #FFF; }
-
 .card-2 { background: var(--card-mint); color: var(--text-dark); }
 .card-2 .cc-icon { background: #FFF; color: var(--brand-mint); }
 .card-2 .btn-chunky { background: #FFF; color: var(--brand-teal); }
-
 .card-3 { background: var(--card-orange); color: var(--text-dark); }
 .card-3 .cc-icon { background: #FFF; color: var(--brand-orange); }
 .card-3 .btn-chunky { background: #FFF; color: var(--brand-teal); }
-
 .card-4 { background: var(--card-purple); color: var(--text-dark); }
 .card-4 .cc-icon { background: #FFF; color: var(--brand-purple); }
 .card-4 .btn-chunky { background: #FFF; color: var(--brand-teal); }
 
 .cc-icon { width: 64px; height: 64px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 32px; }
-.cc-title { font-size: 1.8rem; margin-bottom: 16px; }
-.cc-desc { font-size: 1.05rem; font-weight: 500; margin-bottom: 32px; opacity: 0.9; }
+.cc-title { font-size: 1.6rem; margin-bottom: 16px; line-height: 1.2; }
+.cc-desc { font-size: 1rem; font-weight: 500; margin-bottom: 32px; opacity: 0.9; }
 .btn-chunky {
   align-self: flex-start; padding: 12px 24px; border-radius: 50px; font-weight: 700;
-  text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s;
+  text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s; font-size: 0.9rem;
 }
 .btn-chunky:hover { transform: scale(1.05); }
 
@@ -278,8 +279,8 @@ nav {
   display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800;
   flex-shrink: 0; box-shadow: 0 0 0 10px var(--bg-white);
 }
-.pc-content h3 { font-size: 1.6rem; color: var(--brand-teal); margin-bottom: 8px; }
-.pc-content p { color: var(--text-muted); font-weight: 500; font-size: 1.1rem; }
+.pc-content h3 { font-size: 1.4rem; color: var(--brand-teal); margin-bottom: 8px; line-height: 1.2; }
+.pc-content p { color: var(--text-muted); font-weight: 500; font-size: 1rem; }
 
 /* ─── CONTACT FORM ────────────────────────────────── */
 #contact { padding: 120px 24px; background: var(--brand-teal); color: #FFF; border-radius: 60px 60px 0 0; position: relative; overflow: hidden; }
@@ -287,12 +288,12 @@ nav {
 #contact .sec-sub { color: rgba(255,255,255,0.8); }
 .contact-wrap { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 2; }
 .form-card { background: #FFF; padding: 48px; border-radius: 40px; box-shadow: var(--shadow-float); }
-.form-group { margin-bottom: 24px; }
+.form-group { margin-bottom: 24px; text-align: left; }
 .form-label { display: block; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; font-size: 0.95rem; }
 .form-input {
   width: 100%; padding: 16px 20px; border-radius: 20px; border: 2px solid #E1E8E9;
-  background: #F9FBFB; font-family: var(--font-main); font-size: 1rem; color: var(--text-dark); font-weight: 500;
-  transition: all 0.3s;
+  background: #F9FBFB; font-family: var(--font-main); font-size: 16px; /* Forces 16px to prevent iOS Zoom */
+  color: var(--text-dark); font-weight: 500; transition: all 0.3s;
 }
 .form-input:focus { outline: none; border-color: var(--brand-orange); background: #FFF; box-shadow: 0 0 0 4px rgba(248,155,76,0.1); }
 .btn-submit {
@@ -304,14 +305,14 @@ nav {
 /* ─── FOOTER ──────────────────────────────────────── */
 footer { background: var(--brand-teal); padding: 0 24px 60px; color: #FFF; text-align: center; }
 .ft-logo { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; text-decoration: none; }
-.ft-logo img { height: 40px; width: auto; filter: brightness(0) invert(1); } /* Kept white only in the dark footer */
+.ft-logo img { height: 40px; width: auto; filter: brightness(0) invert(1); } 
 .ft-logo .logo-text { color: #FFF; font-size: 1.5rem; }
-.ft-links { display: flex; justify-content: center; gap: 32px; margin-bottom: 40px; }
+.ft-links { display: flex; justify-content: center; gap: 32px; margin-bottom: 40px; flex-wrap: wrap; }
 .ft-links a { color: rgba(255,255,255,0.8); font-weight: 600; text-decoration: none; }
 .ft-links a:hover { color: #FFF; }
 .ft-copy { color: rgba(255,255,255,0.5); font-size: 0.9rem; font-weight: 500; }
 
-/* ─── RESPONSIVE ──────────────────────────────────── */
+/* ─── FULL MOBILE OPTIMIZATION (GODMODE) ──────────── */
 @media (max-width: 1024px) {
   #hero { grid-template-columns: 1fr; text-align: center; padding-top: 140px; }
   .hero-content { align-items: center; }
@@ -319,460 +320,495 @@ footer { background: var(--brand-teal); padding: 0 24px 60px; color: #FFF; text-
   .bento-grid { grid-template-columns: 1fr; }
   .contact-wrap { grid-template-columns: 1fr; }
 }
+
 @media (max-width: 768px) {
+  /* Navigation */
   nav { padding: 12px 20px; }
   .nav-menu, .nav-cta { display: none; }
   .ham { display: flex; }
-  .hero-title { font-size: 2.8rem; }
-  .showcase-stage { height: 500px; }
   
-  /* Retain visibility on Mobile */
-  .phone-slide.state-prev { transform: translateX(-120px) scale(0.75) rotateY(20deg); opacity: 0.8; filter: blur(1px); }
-  .phone-slide.state-next { transform: translateX(120px) scale(0.75) rotateY(-20deg); opacity: 0.8; filter: blur(1px); }
+  /* Hero & Headings */
+  #hero { padding: 120px 20px 60px; gap: 20px; }
+  .hero-title { font-size: clamp(2.2rem, 8vw, 3.5rem); margin-bottom: 16px; }
+  .hero-subtitle { font-size: 1.05rem; margin-bottom: 30px; }
+  .btn-primary, .btn-secondary { padding: 14px 28px; font-size: 1rem; width: 100%; text-align: center; }
+  
+  /* 3D Phone Carousel Fixes for Mobile */
+  .showcase-stage { height: 500px; margin-top: 20px; perspective: 1000px; }
+  .phone-slide { width: 230px; } /* Shrink physical phone size to fit mobile safely */
+  .phone-frame { height: 480px; border-radius: 40px; }
+  .phone-screen { border-radius: 30px; }
+  
+  /* Tighten transform translations so they don't cause wobble */
+  .phone-slide.state-prev { transform: translateX(-90px) scale(0.8) rotateY(15deg); opacity: 0.6; filter: blur(2px); }
+  .phone-slide.state-next { transform: translateX(90px) scale(0.8) rotateY(-15deg); opacity: 0.6; filter: blur(2px); }
+  .phone-slide.state-far-prev { transform: translateX(-180px) scale(0.6) rotateY(30deg); opacity: 0; }
+  .phone-slide.state-far-next { transform: translateX(180px) scale(0.6) rotateY(-30deg); opacity: 0; }
 
-  .chunky-card { padding: 32px; }
-  .process-container::before { left: 30px; }
-  .process-card { padding: 24px; gap: 20px; }
-  .pc-node { width: 60px; height: 60px; font-size: 1.5rem; }
-  .form-card { padding: 32px; }
-  #contact { border-radius: 40px 40px 0 0; }
+  /* Sections & Cards spacing */
+  #metrics { padding: 24px; gap: 24px; flex-direction: column; align-items: stretch; border-radius: 28px; }
+  .metric-card { justify-content: flex-start; }
+  
+  #services { padding: 80px 20px; }
+  .chunky-card { padding: 32px 24px; border-radius: 32px; }
+  .cc-icon { margin-bottom: 24px; }
+  .cc-title { font-size: 1.5rem; }
+  
+  #process { padding: 80px 20px; }
+  .process-container::before { display: none; } /* Remove vertical line on mobile */
+  .process-card { padding: 24px; flex-direction: column; text-align: center; gap: 16px; border-radius: 28px; }
+  .process-card:hover { transform: translateY(-5px); } /* change hover axis */
+  .pc-node { margin: 0 auto; width: 60px; height: 60px; font-size: 1.5rem; }
+  
+  #contact { padding: 80px 20px; border-radius: 40px 40px 0 0; }
+  .contact-wrap { gap: 40px; }
+  .form-card { padding: 32px 24px; border-radius: 32px; }
 }
 </style>
 </head>
 <body>
 
-<!-- Background Blobs -->
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
-<div class="blob blob-3"></div>
+<div class="site-wrapper">
 
-<!-- Floating Navigation -->
-<div class="nav-wrap">
-  <nav>
-    <a href="#" class="nav-logo">
+  <!-- Background Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Floating Navigation -->
+  <div class="nav-wrap">
+    <nav>
+      <a href="#" class="nav-logo">
+        <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo"/>
+        <span class="logo-text">Seen<span>&amp;</span>Sold</span>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">How it Works</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Get Started</a>
+      <div class="ham" id="hamBtn">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mob-menu" id="mobNav">
+    <a href="#services" class="mob-link">Services</a>
+    <a href="#process" class="mob-link">How it Works</a>
+    <a href="#contact" class="mob-link" style="color: var(--brand-orange);">Get Started</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="pill-badge"><span></span> Easy Tech for Local Shops</div>
+      <h1 class="hero-title">Grow your shop.<br><span class="highlight">Zero tech stress.</span></h1>
+      <p class="hero-subtitle">Friendly, powerful websites, ordering systems, and appointment apps built for clinics, salons, and retail. Manage it all from your phone.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Start My Build</a>
+        <a href="#services" class="btn-secondary">See Features</a>
+      </div>
+    </div>
+
+    <!-- Soft 3D Phone Showcase -->
+    <div class="showcase-stage">
+      <div id="phoneScene" style="width:100%; height:100%; position:relative; display:flex; align-items:center; justify-content:center;">
+        
+        <!-- Slide 1: Owner Dashboard -->
+        <div class="phone-slide state-active" data-index="0">
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="ui-base ui-dash">
+                <div class="ui-status">
+                  <span>9:41</span>
+                  <div class="ui-app-logo">
+                    <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Seen & Sold Logo"/>
+                  </div>
+                  <div style="width: 24px; opacity:0;"></div> <!-- Spacer -->
+                </div>
+                <div class="phone-notch"></div>
+                <div class="ui-header-row">
+                  <h3 style="font-size: 20px;">Shop Overview</h3>
+                </div>
+                <div class="ui-stats-row">
+                  <div class="ui-stat-box">
+                    <div class="ui-stat-num" style="color:var(--brand-mint);">44</div>
+                    <div class="ui-stat-label">Total Orders</div>
+                  </div>
+                  <div class="ui-stat-box">
+                    <div class="ui-stat-num" style="color:var(--brand-purple);">12</div>
+                    <div class="ui-stat-label">Bookings</div>
+                  </div>
+                </div>
+                <div style="font-size:32px; font-weight:800; margin-bottom:8px;">78%</div>
+                <div style="font-size:12px; color:var(--text-muted); font-weight:600; margin-bottom:16px;">Revenue Growth</div>
+                <div class="ui-chart-area">
+                  <svg viewBox="0 0 100 50" style="width:100%; height:100%; overflow:visible;">
+                    <path d="M0,40 Q15,10 30,30 T60,20 T100,5" fill="none" stroke="var(--brand-pink)" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="60" cy="20" r="4" fill="var(--text-dark)"/>
+                    <rect x="50" y="0" width="20" height="12" rx="6" fill="var(--text-dark)"/>
+                    <text x="60" y="8" fill="#FFF" font-size="6" font-family="Poppins" font-weight="bold" text-anchor="middle">78%</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: WhatsApp Ordering (Cart) -->
+        <div class="phone-slide state-next" data-index="1">
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="ui-base ui-wa-cart">
+                <div class="ui-status">
+                  <span style="color:#FFF;">9:41</span>
+                  <div class="ui-app-logo">
+                    <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Seen & Sold Logo"/>
+                  </div>
+                  <div style="width: 24px; opacity:0;"></div>
+                </div>
+                <div class="phone-notch"></div>
+                <div style="padding: 48px 20px 0;">
+                  <h3 style="color:#FFF; font-size:24px;">Your Cart</h3>
+                </div>
+                <div class="ui-wa-cart-inner">
+                  <div class="ui-wa-item">
+                    <div>
+                      <h4 style="font-size: 13px;">Paneer Tikka</h4>
+                      <p style="font-size:10px; color:var(--text-muted);">2x Portion</p>
+                    </div>
+                    <div style="font-weight:700;">₹360</div>
+                  </div>
+                  <div class="ui-wa-item">
+                    <div>
+                      <h4 style="font-size: 13px;">Garlic Naan</h4>
+                      <p style="font-size:10px; color:var(--text-muted);">1x Portion</p>
+                    </div>
+                    <div style="font-weight:700;">₹50</div>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; margin-top:16px; font-size:18px; font-weight:800; color:var(--text-dark);">
+                    <span>Total</span>
+                    <span>₹410</span>
+                  </div>
+                  <div class="ui-wa-btn">
+                    💬 Send to WhatsApp
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Doctor Appointment -->
+        <div class="phone-slide state-far-next" data-index="2">
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="ui-base ui-doc">
+                <div class="ui-status">
+                  <span>9:41</span>
+                  <div class="ui-app-logo">
+                    <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Seen & Sold Logo"/>
+                  </div>
+                  <div style="width: 24px; opacity:0;"></div>
+                </div>
+                <div class="phone-notch"></div>
+                <div class="ui-doc-top">
+                  <div class="ui-doc-av" style="width: 56px; height: 56px; font-size: 20px;">👨‍⚕️</div>
+                  <h3 style="color:var(--brand-teal); font-size: 20px;">Dr. Anil Sharma</h3>
+                  <p style="font-size:12px; font-weight:600; color:var(--text-muted);">Pediatrician</p>
+                </div>
+                <div class="ui-doc-card">
+                  <h4 style="margin-bottom:12px; font-size:14px;">Select Date</h4>
+                  <div class="ui-cal-row">
+                    <div class="ui-cal-day">
+                      <div style="font-size:10px;">Mon</div>
+                      <div style="font-weight:700; font-size:16px;">12</div>
+                    </div>
+                    <div class="ui-cal-day active">
+                      <div style="font-size:10px;">Tue</div>
+                      <div style="font-weight:700; font-size:16px;">13</div>
+                    </div>
+                  </div>
+                  <h4 style="margin-bottom:12px; font-size:14px;">Available Slots</h4>
+                  <div style="display:flex; gap:8px;">
+                    <div class="ui-doc-slot" style="flex:1;">10:00 AM</div>
+                    <div class="ui-doc-slot" style="flex:1; background:var(--brand-teal); color:#FFF;">10:30 AM</div>
+                  </div>
+                  <div style="background:var(--brand-teal); color:#FFF; padding:16px; border-radius:50px; text-align:center; font-weight:700; font-size:14px; margin-top:20px;">
+                    Confirm Booking
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Fees Management (TTC Style) -->
+        <div class="phone-slide state-far-prev" data-index="3">
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="ui-base ui-fees">
+                <div class="ui-status">
+                  <span>9:41</span>
+                  <div class="ui-app-logo">
+                    <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Seen & Sold Logo"/>
+                  </div>
+                  <div style="width: 24px; opacity:0;"></div>
+                </div>
+                <div class="phone-notch"></div>
+                <div class="ui-fees-head">
+                  <h3 style="font-size:24px; color:var(--text-dark);">Fee Tracker</h3>
+                  <p style="font-size:12px; font-weight:600; color:var(--text-dark); opacity:0.7;">Class 10 - Batch A</p>
+                </div>
+                <div class="ui-fees-card">
+                  <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                    <div>
+                      <h4 style="font-size:16px; margin-bottom:4px;">Aarav Patil</h4>
+                      <div class="ui-fees-badge">Overdue</div>
+                    </div>
+                    <div style="width:40px; height:40px; border-radius:12px; background:var(--card-mint); display:flex; align-items:center; justify-content:center; font-size:18px;">🎓</div>
+                  </div>
+                  <div class="ui-fees-amt">₹4,500</div>
+                  <p style="font-size:11px; color:var(--text-muted); font-weight:600;">Due Date: 15 May 2026</p>
+                  
+                  <div style="display:flex; gap:10px; margin-top:20px;">
+                    <div class="ui-fees-btn" style="flex:1; background:var(--brand-mint); color:var(--text-dark);">Mark Paid</div>
+                    <div class="ui-fees-btn" style="flex:1; background:var(--brand-orange);">💬 Reminder</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5: 5-Star Review Generator -->
+        <div class="phone-slide state-prev" data-index="4">
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="ui-base ui-rev">
+                <div class="ui-status">
+                  <span>9:41</span>
+                  <div class="ui-app-logo">
+                    <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Seen & Sold Logo"/>
+                  </div>
+                  <div style="width: 24px; opacity:0;"></div>
+                </div>
+                <div class="phone-notch"></div>
+                <div class="ui-rev-inner">
+                  <div style="font-size:40px; margin-bottom:16px;">🎉</div>
+                  <h3 style="font-size:24px; color:var(--brand-teal); margin-bottom:8px;">How was your visit?</h3>
+                  <p style="font-size:12px; font-weight:500; color:var(--text-muted);">Tap a star to rate us!</p>
+                  <div class="ui-stars">
+                    <span style="color:var(--brand-orange);">★</span>
+                    <span style="color:var(--brand-orange);">★</span>
+                    <span style="color:var(--brand-orange);">★</span>
+                    <span style="color:var(--brand-orange);">★</span>
+                    <span style="color:var(--brand-orange);">★</span>
+                  </div>
+                  <div class="ui-rev-btn">
+                    ⭐ Post on Google Maps
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <!-- Controls positioned absolute inside showcase -->
+      <div style="position:absolute; bottom:-20px; left:0; right:0;">
+        <div class="slide-label" id="slideLabel">Owner Dashboard</div>
+        <div class="controls">
+          <div class="dot active" data-to="0"></div>
+          <div class="dot" data-to="1"></div>
+          <div class="dot" data-to="2"></div>
+          <div class="dot" data-to="3"></div>
+          <div class="dot" data-to="4"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Metrics Strip -->
+  <section id="metrics">
+    <div class="metric-card">
+      <div class="progress-ring"><div class="pr-inner">80%</div></div>
+      <div class="metric-text">
+        <h4>More Orders</h4>
+        <p>Direct to your WhatsApp</p>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="progress-ring" style="background: conic-gradient(var(--brand-orange) 100%, #F0E8E2 0);"><div class="pr-inner">0%</div></div>
+      <div class="metric-text">
+        <h4>Commissions</h4>
+        <p>You keep all profits</p>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="progress-ring" style="background: conic-gradient(var(--brand-purple) 95%, #F0E8E2 0);"><div class="pr-inner">24/7</div></div>
+      <div class="metric-text">
+        <h4>Automated</h4>
+        <p>Bookings while you sleep</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chunky Services Grid -->
+  <section id="services">
+    <div class="sec-head">
+      <h2 class="sec-title">Everything you need. Made easy.</h2>
+      <p class="sec-sub">We build and manage these tools for you, so you can focus on making your customers happy.</p>
+    </div>
+
+    <div class="bento-grid">
+      <div class="chunky-card card-1">
+        <div>
+          <div class="cc-icon">🌐</div>
+          <h3 class="cc-title">High-Ranking Websites</h3>
+          <p class="cc-desc">A beautiful online home for your shop. We optimize it so you show up first on Google when locals search for your services.</p>
+        </div>
+        <a href="#contact" class="btn-chunky">Get a Website</a>
+      </div>
+
+      <div class="chunky-card card-2">
+        <div>
+          <div class="cc-icon">💬</div>
+          <h3 class="cc-title">WhatsApp Ordering</h3>
+          <p class="cc-desc">Stop paying Swiggy and Zomato 30%. Customers browse your digital menu and send orders directly to your WhatsApp.</p>
+        </div>
+        <a href="#contact" class="btn-chunky">Set up Menu</a>
+      </div>
+
+      <div class="chunky-card card-3">
+        <div>
+          <div class="cc-icon">📅</div>
+          <h3 class="cc-title">Smart Appointments & Fees</h3>
+          <p class="cc-desc">Perfect for clinics, salons, and tuitions. Let customers book online 24/7 and track pending payments easily.</p>
+        </div>
+        <a href="#contact" class="btn-chunky">Automate Systems</a>
+      </div>
+
+      <div class="chunky-card card-4">
+        <div>
+          <div class="cc-icon">⭐</div>
+          <h3 class="cc-title">Google Reviews Gen</h3>
+          <p class="cc-desc">Filter angry feedback privately to you, and push happy customers directly to your Google Maps to leave 5-star reviews.</p>
+        </div>
+        <a href="#contact" class="btn-chunky">Boost Reviews</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Stepper -->
+  <section id="process">
+    <div class="sec-head">
+      <h2 class="sec-title">Live in 3 Days.</h2>
+      <p class="sec-sub">No coding, no servers, no stress. We do the heavy lifting using lightweight tools.</p>
+    </div>
+
+    <div class="process-container">
+      <div class="process-card">
+        <div class="pc-node">1</div>
+        <div class="pc-content">
+          <h3>Quick Chat</h3>
+          <p>Drop us a message on WhatsApp. Send over your menu, pricing, and logo. We'll recommend the best tools for your specific shop type.</p>
+        </div>
+      </div>
+      
+      <div class="process-card">
+        <div class="pc-node" style="background:var(--brand-mint);">2</div>
+        <div class="pc-content">
+          <h3>We Build It</h3>
+          <p>Our team designs your website, sets up your booking links, and connects your WhatsApp routing. You just sit back and review it.</p>
+        </div>
+      </div>
+      
+      <div class="process-card">
+        <div class="pc-node" style="background:var(--brand-purple);">3</div>
+        <div class="pc-content">
+          <h3>Start Earning</h3>
+          <p>We hand over the keys. Share the link on Instagram, stick the QR code on your tables, and watch the direct orders flow in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Friendly Contact Form -->
+  <section id="contact">
+    <div class="contact-wrap">
+      <div>
+        <h2 class="sec-title" style="font-size: clamp(2.2rem, 6vw, 3.5rem); margin-bottom: 20px;">Let's set up your shop.</h2>
+        <p class="sec-sub" style="font-size: 1.1rem; margin-bottom: 30px; font-weight: 500;">Fill out this quick form. It instantly sends a neat ticket to our WhatsApp, and we'll reply right away.</p>
+        
+        <div style="display:flex; gap:20px; align-items:center; background:rgba(255,255,255,0.1); padding:20px; border-radius:24px;">
+          <div style="width:50px; height:50px; background:#FFF; color:var(--brand-teal); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:800; flex-shrink: 0;">⚡</div>
+          <div>
+            <div style="font-weight:700; font-size:1.1rem; color:#FFF;">Fast Turnaround</div>
+            <div style="color:rgba(255,255,255,0.8); font-weight:500; font-size:0.95rem;">Average 72 hours to launch</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <form id="leadForm">
+          <h3 style="color:var(--text-dark); margin-bottom: 24px; font-size: 1.6rem; text-align:center;">Get a Proposal</h3>
+          
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" id="tf_name" class="form-input" placeholder="e.g. Rahul Sharma" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Business Type</label>
+            <select id="tf_type" class="form-input" required>
+              <option value="" disabled selected>Select category...</option>
+              <option value="Restaurant/Cafe">Restaurant or Food Stall</option>
+              <option value="Clinic/Doctor">Clinic / Doctor</option>
+              <option value="Tuition/Admin">Tuition Center</option>
+              <option value="Salon/Barber">Salon or Barbershop</option>
+              <option value="Retail">Retail Store</option>
+              <option value="Other">Other Service</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">What do you need?</label>
+            <select id="tf_goal" class="form-input" required>
+              <option value="" disabled selected>Choose your goal...</option>
+              <option value="Direct Orders">Take WA Orders (No Swiggy)</option>
+              <option value="Bookings">Automate Appointments/Fees</option>
+              <option value="Reviews">Generate 5-Star Reviews</option>
+              <option value="Visibility">Rank on Google / Website</option>
+            </select>
+          </div>
+          
+          <button type="submit" class="btn-submit" style="margin-top:8px;">Chat on WhatsApp ↗</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <a href="#" class="ft-logo">
       <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo"/>
       <span class="logo-text">Seen<span>&amp;</span>Sold</span>
     </a>
-    <ul class="nav-menu">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#process">How it Works</a></li>
-    </ul>
-    <a href="#contact" class="nav-cta">Get Started</a>
-    <div class="ham" id="hamBtn">
-      <span></span><span></span><span></span>
+    <div class="ft-links">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="https://wa.me/919975454450" target="_blank">WhatsApp Us</a>
     </div>
-  </nav>
-</div>
-
-<!-- Mobile Menu Overlay -->
-<div class="mob-menu" id="mobNav">
-  <a href="#services" class="mob-link">Services</a>
-  <a href="#process" class="mob-link">How it Works</a>
-  <a href="#contact" class="mob-link" style="color: var(--brand-orange);">Get Started</a>
-</div>
-
-<!-- Hero Section -->
-<section id="hero">
-  <div class="hero-content">
-    <div class="pill-badge"><span></span> Easy Tech for Local Shops</div>
-    <h1 class="hero-title">Grow your shop.<br><span class="highlight">Zero tech stress.</span></h1>
-    <p class="hero-subtitle">Friendly, powerful websites, ordering systems, and appointment apps built for clinics, salons, and retail. Manage it all from your phone.</p>
-    <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Start My Build</a>
-      <a href="#services" class="btn-secondary">See Features</a>
+    <div class="ft-copy">
+      &copy; 2026 Seen & Sold Tech. Built for local shops everywhere.
     </div>
-  </div>
+  </footer>
 
-  <!-- Soft 3D Phone Showcase (5 Slides) -->
-  <div class="showcase-stage">
-    <div id="phoneScene" style="width:100%; height:100%; position:relative; display:flex; align-items:center; justify-content:center;">
-      
-      <!-- Slide 1: Owner Dashboard -->
-      <div class="phone-slide state-active" data-index="0">
-        <div class="phone-frame">
-          <div class="phone-screen">
-            <div class="ui-base ui-dash">
-              <!-- Top Left/Right Structure -->
-              <div class="ui-status">
-                <span>9:41</span>
-                <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo" style="height: 18px; width: auto; object-fit: contain;"/>
-              </div>
-              <div class="phone-notch"></div>
-              
-              <div class="ui-header-row">
-                <h3>Shop Overview</h3>
-              </div>
-              <div class="ui-stats-row">
-                <div class="ui-stat-box">
-                  <div class="ui-stat-num" style="color:var(--brand-mint);">44</div>
-                  <div class="ui-stat-label">Total Orders</div>
-                </div>
-                <div class="ui-stat-box">
-                  <div class="ui-stat-num" style="color:var(--brand-purple);">12</div>
-                  <div class="ui-stat-label">Bookings</div>
-                </div>
-              </div>
-              <div style="font-size:32px; font-weight:800; margin-bottom:8px;">78%</div>
-              <div style="font-size:12px; color:var(--text-muted); font-weight:600; margin-bottom:16px;">Revenue Growth</div>
-              <div class="ui-chart-area">
-                <svg viewBox="0 0 100 50" style="width:100%; height:100%; overflow:visible;">
-                  <path d="M0,40 Q15,10 30,30 T60,20 T100,5" fill="none" stroke="var(--brand-pink)" stroke-width="4" stroke-linecap="round"/>
-                  <circle cx="60" cy="20" r="4" fill="var(--text-dark)"/>
-                  <rect x="50" y="0" width="20" height="12" rx="6" fill="var(--text-dark)"/>
-                  <text x="60" y="8" fill="#FFF" font-size="6" font-family="Poppins" font-weight="bold" text-anchor="middle">78%</text>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 2: WhatsApp Ordering (Cart) -->
-      <div class="phone-slide state-next" data-index="1">
-        <div class="phone-frame">
-          <div class="phone-screen">
-            <div class="ui-base ui-wa-cart">
-              <!-- Top Left/Right Structure -->
-              <div class="ui-status">
-                <span>9:41</span>
-                <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo" style="height: 18px; width: auto; object-fit: contain;"/>
-              </div>
-              <div class="phone-notch"></div>
-              
-              <div style="padding: 48px 20px 0;">
-                <h3 style="color:var(--text-dark); font-size:24px;">Your Cart</h3>
-              </div>
-              <div class="ui-wa-cart-inner">
-                <div class="ui-wa-item">
-                  <div>
-                    <h4>Paneer Tikka</h4>
-                    <p style="font-size:10px; color:var(--text-muted);">2x Portion</p>
-                  </div>
-                  <div style="font-weight:700;">₹360</div>
-                </div>
-                <div class="ui-wa-item">
-                  <div>
-                    <h4>Garlic Naan</h4>
-                    <p style="font-size:10px; color:var(--text-muted);">1x Portion</p>
-                  </div>
-                  <div style="font-weight:700;">₹50</div>
-                </div>
-                <div style="display:flex; justify-content:space-between; margin-top:16px; font-size:18px; font-weight:800; color:var(--text-dark);">
-                  <span>Total</span>
-                  <span>₹410</span>
-                </div>
-                <div class="ui-wa-btn">
-                  💬 Send Order to WhatsApp
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 3: Doctor Appointment -->
-      <div class="phone-slide state-far-next" data-index="2">
-        <div class="phone-frame">
-          <div class="phone-screen">
-            <div class="ui-base ui-doc">
-              <!-- Top Left/Right Structure -->
-              <div class="ui-status">
-                <span>9:41</span>
-                <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo" style="height: 18px; width: auto; object-fit: contain;"/>
-              </div>
-              <div class="phone-notch"></div>
-              
-              <div class="ui-doc-top">
-                <div class="ui-doc-av">👨‍⚕️</div>
-                <h3 style="color:var(--brand-teal);">Dr. Anil Sharma</h3>
-                <p style="font-size:12px; font-weight:600; color:var(--text-muted);">Pediatrician</p>
-              </div>
-              <div class="ui-doc-card">
-                <h4 style="margin-bottom:12px; font-size:14px;">Select Date</h4>
-                <div class="ui-cal-row">
-                  <div class="ui-cal-day">
-                    <div style="font-size:10px;">Mon</div>
-                    <div style="font-weight:700; font-size:18px;">12</div>
-                  </div>
-                  <div class="ui-cal-day active">
-                    <div style="font-size:10px;">Tue</div>
-                    <div style="font-weight:700; font-size:18px;">13</div>
-                  </div>
-                </div>
-                <h4 style="margin-bottom:12px; font-size:14px;">Available Slots</h4>
-                <div style="display:flex; gap:8px;">
-                  <div class="ui-doc-slot" style="flex:1;">10:00 AM</div>
-                  <div class="ui-doc-slot" style="flex:1; background:var(--brand-teal); color:#FFF;">10:30 AM</div>
-                </div>
-                <div style="background:var(--brand-teal); color:#FFF; padding:16px; border-radius:50px; text-align:center; font-weight:700; font-size:14px; margin-top:20px;">
-                  Confirm Consultation
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 4: Fees Management (TTC Style) -->
-      <div class="phone-slide state-far-prev" data-index="3">
-        <div class="phone-frame">
-          <div class="phone-screen">
-            <div class="ui-base ui-fees">
-              <!-- Top Left/Right Structure -->
-              <div class="ui-status">
-                <span>9:41</span>
-                <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo" style="height: 18px; width: auto; object-fit: contain;"/>
-              </div>
-              <div class="phone-notch"></div>
-              
-              <div class="ui-fees-head">
-                <h3 style="font-size:24px; color:var(--text-dark);">Fee Tracker</h3>
-                <p style="font-size:12px; font-weight:600; color:var(--text-dark); opacity:0.7;">Class 10 - Batch A</p>
-              </div>
-              <div class="ui-fees-card">
-                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                  <div>
-                    <h4 style="font-size:16px; margin-bottom:4px;">Aarav Patil</h4>
-                    <div class="ui-fees-badge">Overdue</div>
-                  </div>
-                  <div style="width:40px; height:40px; border-radius:12px; background:var(--card-mint); display:flex; align-items:center; justify-content:center; font-size:18px;">🎓</div>
-                </div>
-                <div class="ui-fees-amt">₹4,500</div>
-                <p style="font-size:11px; color:var(--text-muted); font-weight:600;">Due Date: 15 May 2026</p>
-                
-                <div style="display:flex; gap:10px; margin-top:20px;">
-                  <div class="ui-fees-btn" style="flex:1; background:var(--brand-mint); color:var(--text-dark);">Mark Paid</div>
-                  <div class="ui-fees-btn" style="flex:1; background:var(--brand-orange);">💬 Reminder</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 5: 5-Star Review Generator -->
-      <div class="phone-slide state-prev" data-index="4">
-        <div class="phone-frame">
-          <div class="phone-screen">
-            <div class="ui-base ui-rev">
-              <!-- Top Left/Right Structure -->
-              <div class="ui-status">
-                <span>9:41</span>
-                <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo" style="height: 18px; width: auto; object-fit: contain;"/>
-              </div>
-              <div class="phone-notch"></div>
-              
-              <div class="ui-rev-inner">
-                <div style="font-size:40px; margin-bottom:16px;">🎉</div>
-                <h3 style="font-size:24px; color:var(--brand-teal); margin-bottom:8px;">How was your visit?</h3>
-                <p style="font-size:12px; font-weight:500; color:var(--text-muted);">Tap a star to rate us!</p>
-                <div class="ui-stars">
-                  <span style="color:var(--brand-orange);">★</span>
-                  <span style="color:var(--brand-orange);">★</span>
-                  <span style="color:var(--brand-orange);">★</span>
-                  <span style="color:var(--brand-orange);">★</span>
-                  <span style="color:var(--brand-orange);">★</span>
-                </div>
-                <div class="ui-rev-btn">
-                  ⭐ Post on Google Maps
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    
-    <!-- Controls positioned absolute inside showcase -->
-    <div style="position:absolute; bottom:-30px; left:0; right:0;">
-      <div class="slide-label" id="slideLabel">Owner Dashboard</div>
-      <div class="controls">
-        <div class="dot active" data-to="0"></div>
-        <div class="dot" data-to="1"></div>
-        <div class="dot" data-to="2"></div>
-        <div class="dot" data-to="3"></div>
-        <div class="dot" data-to="4"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Floating Metrics Strip -->
-<section id="metrics">
-  <div class="metric-card">
-    <div class="progress-ring"><div class="pr-inner">80%</div></div>
-    <div class="metric-text">
-      <h4>More Orders</h4>
-      <p>Direct to your WhatsApp</p>
-    </div>
-  </div>
-  <div class="metric-card">
-    <div class="progress-ring" style="background: conic-gradient(var(--brand-orange) 100%, #F0E8E2 0);"><div class="pr-inner">0%</div></div>
-    <div class="metric-text">
-      <h4>Commissions</h4>
-      <p>You keep all profits</p>
-    </div>
-  </div>
-  <div class="metric-card">
-    <div class="progress-ring" style="background: conic-gradient(var(--brand-purple) 95%, #F0E8E2 0);"><div class="pr-inner">24/7</div></div>
-    <div class="metric-text">
-      <h4>Automated</h4>
-      <p>Bookings while you sleep</p>
-    </div>
-  </div>
-</section>
-
-<!-- Chunky Services Grid -->
-<section id="services">
-  <div class="sec-head">
-    <h2 class="sec-title">Everything you need. Made easy.</h2>
-    <p class="sec-sub">We build and manage these tools for you, so you can focus on making your customers happy.</p>
-  </div>
-
-  <div class="bento-grid">
-    <div class="chunky-card card-1">
-      <div>
-        <div class="cc-icon">🌐</div>
-        <h3 class="cc-title">High-Ranking Websites</h3>
-        <p class="cc-desc">A beautiful online home for your shop. We optimize it so you show up first on Google when locals search for your services.</p>
-      </div>
-      <a href="#contact" class="btn-chunky">Get a Website</a>
-    </div>
-
-    <div class="chunky-card card-2">
-      <div>
-        <div class="cc-icon">💬</div>
-        <h3 class="cc-title">WhatsApp Ordering</h3>
-        <p class="cc-desc">Stop paying Swiggy and Zomato 30%. Customers browse your digital menu and send orders directly to your WhatsApp.</p>
-      </div>
-      <a href="#contact" class="btn-chunky">Set up Menu</a>
-    </div>
-
-    <div class="chunky-card card-3">
-      <div>
-        <div class="cc-icon">📅</div>
-        <h3 class="cc-title">Smart Appointments & Fees</h3>
-        <p class="cc-desc">Perfect for clinics, salons, and tuitions. Let customers book online 24/7 and track pending payments easily.</p>
-      </div>
-      <a href="#contact" class="btn-chunky">Automate Systems</a>
-    </div>
-
-    <div class="chunky-card card-4">
-      <div>
-        <div class="cc-icon">⭐</div>
-        <h3 class="cc-title">Google Reviews Gen</h3>
-        <p class="cc-desc">Filter angry feedback privately to you, and push happy customers directly to your Google Maps to leave 5-star reviews.</p>
-      </div>
-      <a href="#contact" class="btn-chunky">Boost Reviews</a>
-    </div>
-  </div>
-</section>
-
-<!-- Process Stepper -->
-<section id="process">
-  <div class="sec-head">
-    <h2 class="sec-title">Live in 3 Days.</h2>
-    <p class="sec-sub">No coding, no servers, no stress. We do the heavy lifting using lightweight tools.</p>
-  </div>
-
-  <div class="process-container">
-    <div class="process-card">
-      <div class="pc-node">1</div>
-      <div class="pc-content">
-        <h3>Quick Chat</h3>
-        <p>Drop us a message on WhatsApp. Send over your menu, pricing, and logo. We'll recommend the best tools for your specific shop type.</p>
-      </div>
-    </div>
-    
-    <div class="process-card">
-      <div class="pc-node" style="background:var(--brand-mint);">2</div>
-      <div class="pc-content">
-        <h3>We Build It</h3>
-        <p>Our team designs your website, sets up your booking links, and connects your WhatsApp routing. You just sit back and review it.</p>
-      </div>
-    </div>
-    
-    <div class="process-card">
-      <div class="pc-node" style="background:var(--brand-purple);">3</div>
-      <div class="pc-content">
-        <h3>Start Earning</h3>
-        <p>We hand over the keys. Share the link on Instagram, stick the QR code on your tables, and watch the direct orders flow in.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Friendly Contact Form -->
-<section id="contact">
-  <div class="contact-wrap">
-    <div>
-      <h2 class="sec-title" style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 20px;">Let's set up your shop.</h2>
-      <p class="sec-sub" style="font-size: 1.2rem; margin-bottom: 40px; font-weight: 500;">Fill out this quick form. It instantly sends a neat ticket to our WhatsApp, and we'll reply right away.</p>
-      
-      <div style="display:flex; gap:20px; align-items:center; background:rgba(255,255,255,0.1); padding:20px; border-radius:24px;">
-        <div style="width:60px; height:60px; background:#FFF; color:var(--brand-teal); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:800;">⚡</div>
-        <div>
-          <div style="font-weight:700; font-size:1.2rem; color:#FFF;">Fast Turnaround</div>
-          <div style="color:rgba(255,255,255,0.8); font-weight:500;">Average 72 hours to launch</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-card">
-      <form id="leadForm">
-        <h3 style="color:var(--text-dark); margin-bottom: 32px; font-size: 1.8rem; text-align:center;">Get a Proposal</h3>
-        
-        <div class="form-group">
-          <label class="form-label">Your Name</label>
-          <input type="text" id="tf_name" class="form-input" placeholder="e.g. Rahul Sharma" required>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Business Type</label>
-          <select id="tf_type" class="form-input" required>
-            <option value="" disabled selected>Select category...</option>
-            <option value="Restaurant/Cafe">Restaurant or Food Stall</option>
-            <option value="Clinic/Doctor">Clinic / Doctor</option>
-            <option value="Tuition/Admin">Tuition Center</option>
-            <option value="Salon/Barber">Salon or Barbershop</option>
-            <option value="Retail">Retail Store</option>
-            <option value="Other">Other Service</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">What do you need?</label>
-          <select id="tf_goal" class="form-input" required>
-            <option value="" disabled selected>Choose your goal...</option>
-            <option value="Direct Orders">Take WA Orders (No Swiggy)</option>
-            <option value="Bookings">Automate Appointments/Fees</option>
-            <option value="Reviews">Generate 5-Star Reviews</option>
-            <option value="Visibility">Rank on Google / Website</option>
-          </select>
-        </div>
-        
-        <button type="submit" class="btn-submit" style="margin-top:16px;">Chat on WhatsApp ↗</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer>
-  <a href="#" class="ft-logo">
-    <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo"/>
-    <span class="logo-text">Seen<span>&amp;</span>Sold</span>
-  </a>
-  <div class="ft-links">
-    <a href="#services">Services</a>
-    <a href="#process">Process</a>
-    <a href="https://wa.me/919975454450" target="_blank">WhatsApp Us</a>
-  </div>
-  <div class="ft-copy">
-    &copy; 2026 Seen & Sold Tech. Built for local shops everywhere.
-  </div>
-</footer>
+</div> <!-- End Site Wrapper -->
 
 <script>
 // --- Navigation Scroll Effect ---
