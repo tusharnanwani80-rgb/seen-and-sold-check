@@ -3,1895 +3,882 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Seen & Sold</title>
+<title>Seen & Sold | Tech for Local Shops & Clinics</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:ital,wght@0,400;0,500;0,600;1,400;1,700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-/* ─── TOKENS ──────────────────────────────────────── */
-:root{
-  --ink:   #0C0C0C;
-  --off:   #F5F0E8;
-  --fire:  #F5530A;
-  --gold:  #F5A623;
-  --smoke: #2A2A2A;
-  --mid:   #6B6B6B;
-  --rule:  rgba(12,12,12,0.12);
-}
- 
-/* ─── RESET ───────────────────────────────────────── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  cursor:auto;
-  font-family:'Barlow',sans-serif;
-  background:var(--off);
-  color:var(--ink);
-  overflow-x:hidden;
+/* ─── DESIGN TOKENS (Playful & Friendly Palette) ─── */
+:root {
+  --bg-cream: #FFF7F2;      
+  --bg-white: #FFFFFF;
   
-}
- 
-/* ─── CURSOR ──────────────────────────────────────── */
-/* ─── NAV ─────────────────────────────────────────── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 48px;height:64px;
-  mix-blend-mode:normal;
-  transition:background .3s,border-color .3s;
-}
-nav.bg{
-  background:var(--off);
-  border-bottom:1px solid var(--rule);
-}
-.nav-logo{
-  display:flex;align-items:center;gap:8px;
-  text-decoration:none;
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:1.15rem;
-  letter-spacing:.04em;text-transform:uppercase;
-  color:var(--ink);
-}
-.nav-logo img{
-  height:38px;width:auto;object-fit:contain;display:block;
-}
-.nav-menu{display:flex;gap:28px;list-style:none}
-.nav-menu a{
-  font-size:.8rem;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink);
-  text-decoration:none;opacity:.45;transition:opacity .2s;
-}
-.nav-menu a:hover{opacity:1}
-.nav-pill{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--ink);color:var(--off);
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:.82rem;letter-spacing:.06em;
-  text-transform:uppercase;
-  padding:9px 20px;border-radius:4px;
-  text-decoration:none;
-  transition:background .25s,transform .25s;
-}
-.nav-pill:hover{background:var(--fire);transform:translateY(-1px)}
-.ham{display:none;flex-direction:column;gap:5px;padding:4px}
-.ham span{display:block;width:22px;height:1.5px;background:var(--ink);transition:.3s}
- 
-/* ─── HERO ────────────────────────────────────────── */
-#hero{
-  min-height:100vh;
-  display:grid;
-  grid-template-rows:1fr auto;
-  padding:0;
-  background:var(--off);
-  position:relative;overflow:hidden;
-}
- 
-/* ─── HERO LAYOUT ──────────────────────────────── */
-.hero-main{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  align-items:center;
-  padding:110px 48px 0;
-  position:relative;z-index:1;
-  gap:0;
-  min-height:calc(100vh - 160px);
-}
- 
-/* LEFT */
-.hero-left{
-  display:flex;flex-direction:column;
-  justify-content:center;
-  align-items:flex-start;
-  text-align:left;
-  padding-right:48px;
-}
-.hero-logo-lockup{
-  margin-bottom:32px;
-  width:100%;
-  background:transparent;
-  border-radius:0;
-  padding:0;
-}
-.hero-logo-lockup img{
-  width:100%;max-width:100%;height:auto;
-  object-fit:contain;display:block;
-  mix-blend-mode:multiply;
-}
-.hero-logo-lockup img{
-  width:100%;max-width:100%;height:auto;
-  object-fit:contain;display:block;
-}
- 
-.hero-sub{
-  font-family:'Anton',sans-serif;
-  font-size:clamp(1.6rem,2.8vw,2.6rem);
-  line-height:1.05;
-  letter-spacing:-.01em;
-  color:var(--ink);
-  max-width:420px;
-  margin:0 0 36px 0;
-  text-align:left;
-}
-.hero-sub .fire{ color:var(--fire); }
-.hero-sub .stroke{
-  -webkit-text-stroke:1.5px var(--ink);
-  color:transparent;
-}
-.hero-cta-row{display:flex;align-items:center;justify-content:flex-start;gap:20px;flex-wrap:wrap}
- 
-/* ── What we offer block ── */
-.carousel-offer{
-  width:100%;
-  padding:0 8px;
-  margin-bottom:16px;
-}
-.co-tag{
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:.72rem;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--fire);
-  display:flex;align-items:center;gap:8px;
-  margin-bottom:8px;
-}
-.co-tag::before{content:'';width:16px;height:1.5px;background:var(--fire)}
-.co-title{
-  font-family:'Anton',sans-serif;
-  font-size:clamp(1.8rem,3.2vw,3rem);
-  line-height:.95;letter-spacing:-.01em;
-  color:var(--ink);
-}
-.co-fire{color:var(--fire)}
-.carousel-eyebrow{
-  display:flex;align-items:center;gap:14px;
-  margin-bottom:20px;
-  width:100%;justify-content:center;
-}
-.ce-line{
-  flex:1;max-width:60px;height:1.5px;
-  background:linear-gradient(90deg,transparent,var(--ink));
-  opacity:.15;
-}
-.ce-line:last-child{
-  background:linear-gradient(90deg,var(--ink),transparent);
-}
-.ce-text{
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:.78rem;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--mid);
-  white-space:nowrap;
-}
-.ce-fire{ color:var(--fire); }
-.btn-fire{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--fire);color:#fff;
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:.9rem;letter-spacing:.08em;
-  text-transform:uppercase;
-  padding:13px 28px;border-radius:4px;
-  text-decoration:none;
-  transition:all .3s cubic-bezier(.22,1,.36,1);
-}
-.btn-fire:hover{background:var(--ink);transform:translateY(-2px);box-shadow:0 10px 30px rgba(245,83,10,.25)}
-.btn-text-link{
-  font-size:.82rem;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink);
-  text-decoration:none;
-  display:flex;align-items:center;gap:6px;
-  opacity:.5;transition:opacity .2s;
-}
-.btn-text-link:hover{opacity:1}
- 
-/* ─── RIGHT: 3D PHONE CAROUSEL ─────────────────── */
-.hero-right{
-  position:relative;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  height:100%;
-  min-height:580px;
-  padding:20px 0;
-  background:transparent;
-}
- 
-/* Carousel scene */
-.phone-scene{
-  position:relative;
-  width:100%;
-  height:540px;
-  perspective:1200px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
- 
-/* Individual phone wrapper — positioned absolutely */
-.phone-slide{
-  position:absolute;
-  width:240px;
-  transition:all .6s cubic-bezier(.22,1,.36,1);
-  cursor:grab;
-  user-select:none;
-  -webkit-user-select:none;
-}
-.phone-slide:active{cursor:grabbing}
- 
-/* States */
-.phone-slide.state-active{
-  transform:translateX(0) rotateY(0deg) scale(1);
-  z-index:10;
-  opacity:1;
-}
-.phone-slide.state-prev{
-  transform:translateX(-180px) rotateY(28deg) scale(0.78);
-  z-index:5;
-  opacity:0.45;
-}
-.phone-slide.state-next{
-  transform:translateX(180px) rotateY(-28deg) scale(0.78);
-  z-index:5;
-  opacity:0.45;
-}
-.phone-slide.state-far-prev{
-  transform:translateX(-300px) rotateY(40deg) scale(0.6);
-  z-index:1;
-  opacity:0;
-}
-.phone-slide.state-far-next{
-  transform:translateX(300px) rotateY(-40deg) scale(0.6);
-  z-index:1;
-  opacity:0;
-}
- 
-/* ═══════════════════════════════════════════════
-   REALISTIC iPHONE FRAME
-═══════════════════════════════════════════════ */
-.phone-frame{
-  width:240px;
-  height:490px;
-  position:relative;
-  /* Outer body — titanium-like finish */
-  background:linear-gradient(175deg,#3a3a3c 0%,#1c1c1e 45%,#2c2c2e 100%);
-  border-radius:46px;
-  box-shadow:
-    /* Edge highlight top-left */
-    inset 2px 2px 0 rgba(255,255,255,0.12),
-    /* Edge shadow bottom-right */
-    inset -1px -1px 0 rgba(0,0,0,0.6),
-    /* Outer glow / depth */
-    0 0 0 0.5px rgba(255,255,255,0.06),
-    0 24px 60px rgba(0,0,0,0.55),
-    0 8px 20px rgba(0,0,0,0.4),
-    0 2px 6px rgba(0,0,0,0.3);
-  overflow:visible;
-  flex-shrink:0;
-}
- 
-/* ── Inner bezel ring (screen surround) ── */
-.phone-bezel{
-  position:absolute;
-  inset:6px;
-  background:#000;
-  border-radius:41px;
-  overflow:hidden;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,0.04);
-}
- 
-/* ── Right button — power ── */
-.phone-btn-power{
-  position:absolute;
-  right:-3px; top:130px;
-  width:3px; height:64px;
-  background:linear-gradient(180deg,#4a4a4c,#2a2a2c,#4a4a4c);
-  border-radius:0 2px 2px 0;
-  box-shadow: 1px 0 2px rgba(0,0,0,0.5);
-}
- 
-/* ── Left buttons — volume up / down / silent ── */
-.phone-btn-silent{
-  position:absolute;
-  left:-3px; top:80px;
-  width:3px; height:28px;
-  background:linear-gradient(180deg,#4a4a4c,#2a2a2c,#4a4a4c);
-  border-radius:2px 0 0 2px;
-  box-shadow:-1px 0 2px rgba(0,0,0,0.5);
-}
-.phone-btn-vol-up{
-  position:absolute;
-  left:-3px; top:126px;
-  width:3px; height:48px;
-  background:linear-gradient(180deg,#4a4a4c,#2a2a2c,#4a4a4c);
-  border-radius:2px 0 0 2px;
-  box-shadow:-1px 0 2px rgba(0,0,0,0.5);
-}
-.phone-btn-vol-dn{
-  position:absolute;
-  left:-3px; top:184px;
-  width:3px; height:48px;
-  background:linear-gradient(180deg,#4a4a4c,#2a2a2c,#4a4a4c);
-  border-radius:2px 0 0 2px;
-  box-shadow:-1px 0 2px rgba(0,0,0,0.5);
-}
- 
-/* ── Screen (inside bezel) ── */
-.phone-screen{
-  position:absolute;
-  inset:0;
-  border-radius:41px;
-  overflow:hidden;
-  background:#fff;
-}
- 
-/* ── Dynamic Island ── */
-.phone-island{
-  position:absolute;
-  top:10px; left:50%; transform:translateX(-50%);
-  width:88px; height:28px;
-  background:#000;
-  border-radius:20px;
-  z-index:50;
-  box-shadow:0 0 0 1px rgba(255,255,255,0.04);
-  display:flex;align-items:center;justify-content:flex-end;
-  padding-right:9px;gap:5px;
-}
-.phone-island::before{
-  /* Camera dot */
-  content:'';
-  width:9px;height:9px;border-radius:50%;
-  background:#1a1a1a;
-  box-shadow:inset 0 0 0 2px #0a0a0a, 0 0 0 1px rgba(255,255,255,.04);
-}
- 
-/* ── Bottom home indicator ── */
-.phone-home{
-  position:absolute;
-  bottom:6px; left:50%; transform:translateX(-50%);
-  width:88px; height:4px;
-  background:rgba(255,255,255,0.25);
-  border-radius:3px;
-  z-index:50;
-}
- 
-/* ── Shine overlay ── */
-.phone-shine{
-  position:absolute;
-  inset:0; z-index:40; pointer-events:none;
-  border-radius:41px;
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,0.08) 0%,
-    rgba(255,255,255,0.03) 30%,
-    transparent 55%,
-    rgba(0,0,0,0.04) 100%
-  );
-}
- 
-/* ─── SCREEN CONTENT UIs ────────────────────────── */
-/* Shared screen chrome */
-.sc-statusbar{
-  height:52px;
-  display:flex;align-items:flex-end;justify-content:space-between;
-  padding:0 20px 6px;font-size:10px;font-weight:700;
-  position:relative;z-index:5;
-}
-.sc-sb-time{letter-spacing:.03em}
-.sc-sb-icons{display:flex;gap:4px;align-items:center}
-.sc-sb-icons span{font-size:9px}
- 
-/* ── RESTAURANT SCREEN ── */
-.phone-ui-restaurant{
-  background:#FFFBF5;height:100%;
-  font-family:'Barlow',sans-serif;
-  display:flex;flex-direction:column;
-}
-.ru-header{
-  background:linear-gradient(160deg,#1a1a2e 0%,#16213e 100%);
-  padding:40px 18px 20px;
-  position:relative;overflow:hidden;
-}
-.ru-header::before{
-  content:'';position:absolute;
-  width:120px;height:120px;border-radius:50%;
-  background:rgba(245,83,10,.15);
-  top:-30px;right:-20px;filter:blur(30px);
-}
-.ru-tag{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:6px}
-.ru-name{font-family:'Anton',sans-serif;font-size:22px;color:#fff;letter-spacing:-.01em;line-height:1}
-.ru-sub{font-size:10px;color:rgba(255,255,255,.45);margin-top:5px}
-.ru-cats{display:flex;gap:7px;padding:12px 18px;overflow:hidden;flex-shrink:0}
-.ru-cat{
-  font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  padding:5px 12px;border-radius:50px;background:#f0ebe3;color:#888;white-space:nowrap;
-}
-.ru-cat.on{background:#F5530A;color:#fff}
-.ru-items{display:flex;flex-direction:column;gap:0;padding:0 18px;overflow:hidden;flex:1}
-.ru-item{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:11px 0;border-bottom:1px solid #f0ebe3;
-}
-.ru-item:last-child{border:none}
-.ru-item-info{}
-.ru-item-name{font-size:11px;font-weight:700;color:#1a1a1a}
-.ru-item-desc{font-size:9px;color:#aaa;margin-top:2px}
-.ru-item-price{font-family:'Anton',sans-serif;font-size:13px;color:#F5530A}
-.ru-fab{
-  position:absolute;bottom:16px;right:16px;
-  width:40px;height:40px;border-radius:50%;
-  background:#F5530A;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;color:#fff;
-  box-shadow:0 4px 16px rgba(245,83,10,.4);
-}
- 
-/* ── BARBER BOOKING SCREEN ── */
-.phone-ui-barber{
-  background:#0f0f0f;height:100%;
-  font-family:'Barlow',sans-serif;
-  display:flex;flex-direction:column;
-}
-.bb-header{
-  padding:40px 18px 14px;
-  display:flex;align-items:flex-start;justify-content:space-between;
-}
-.bb-tag{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3)}
-.bb-name{font-family:'Anton',sans-serif;font-size:19px;color:#fff;margin-top:4px;line-height:1}
-.bb-avatar{
-  width:36px;height:36px;border-radius:50%;
-  background:linear-gradient(135deg,#F5530A,#F5A623);
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;font-weight:800;color:#fff;
-  font-family:'Anton',sans-serif;
-  flex-shrink:0;
-}
-.bb-slots-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:0 18px;margin-bottom:8px}
-.bb-slots{display:flex;flex-wrap:wrap;gap:6px;padding:0 18px;margin-bottom:14px}
-.bb-slot{
-  padding:7px 12px;border-radius:6px;
-  background:rgba(255,255,255,.06);
-  font-size:10px;font-weight:700;color:rgba(255,255,255,.5);
-  border:1px solid rgba(255,255,255,.06);
-}
-.bb-slot.on{background:#F5530A;color:#fff;border-color:#F5530A}
-.bb-barbers{display:flex;gap:8px;padding:0 18px;margin-bottom:14px;overflow:hidden}
-.bb-barber{display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0}
-.bb-barber-av{
-  width:40px;height:40px;border-radius:50%;
-  background:linear-gradient(135deg,#222,#333);
-  border:2px solid transparent;
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;color:rgba(255,255,255,.5);font-weight:700;
-}
-.bb-barber.sel .bb-barber-av{border-color:#F5530A}
-.bb-barber-name{font-size:8px;color:rgba(255,255,255,.4);font-weight:600}
-.bb-btn{
-  margin:0 18px;
-  background:#F5530A;color:#fff;border-radius:8px;
-  padding:13px;text-align:center;
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;
-}
- 
-/* ── DELIVERY SCREEN ── */
-.phone-ui-delivery{
-  background:#fff;height:100%;
-  font-family:'Barlow',sans-serif;
-  display:flex;flex-direction:column;
-}
-.dl-map{
-  height:130px;
-  background:linear-gradient(160deg,#e8f0e8 0%,#d4e8d4 100%);
-  position:relative;overflow:hidden;flex-shrink:0;
-}
-.dl-map-grid{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(0,0,0,.06) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,0,0,.06) 1px,transparent 1px);
-  background-size:20px 20px;
-}
-.dl-pin{
-  position:absolute;top:40%;left:55%;transform:translate(-50%,-50%);
-  font-size:22px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));
-}
-.dl-pulse{
-  position:absolute;top:40%;left:55%;transform:translate(-50%,-50%);
-  width:40px;height:40px;border-radius:50%;
-  background:rgba(245,83,10,.15);
-  animation:dlpulse 2s ease-out infinite;
-}
-@keyframes dlpulse{0%{transform:translate(-50%,-50%) scale(0.5);opacity:.8}100%{transform:translate(-50%,-50%) scale(2);opacity:0}}
-.dl-body{padding:14px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
-.dl-status{
-  background:#F5530A;border-radius:8px;padding:10px 14px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.dl-status-text{font-size:10px;font-weight:700;color:#fff;letter-spacing:.04em}
-.dl-status-time{font-family:'Anton',sans-serif;font-size:13px;color:rgba(255,255,255,.8)}
-.dl-order-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa}
-.dl-order-items{display:flex;flex-direction:column;gap:7px}
-.dl-oi{display:flex;align-items:center;justify-content:space-between}
-.dl-oi-name{font-size:10px;font-weight:600;color:#1a1a1a;display:flex;align-items:center;gap:6px}
-.dl-oi-qty{
-  width:16px;height:16px;border-radius:4px;
-  background:#F5530A;color:#fff;
-  font-size:8px;font-weight:800;
-  display:flex;align-items:center;justify-content:center;
-}
-.dl-oi-price{font-size:10px;font-weight:700;color:#1a1a1a}
-.dl-wa{
-  background:#25D366;border-radius:8px;padding:11px;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  font-size:10px;font-weight:700;color:#fff;letter-spacing:.04em;
-  text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;
-}
- 
-/* ── CAFE SCREEN ── */
-.phone-ui-cafe{
-  background:#1a1208;height:100%;
-  font-family:'Barlow',sans-serif;
-  display:flex;flex-direction:column;
-}
-.cf-hero-img{
-  height:160px;flex-shrink:0;
-  background:linear-gradient(160deg,#3d2b1f 0%,#2a1f14 100%);
-  position:relative;overflow:hidden;
-  display:flex;align-items:flex-end;padding:16px 18px;
-}
-.cf-hero-img::before{
-  content:'☕';
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  font-size:56px;opacity:.15;
-}
-.cf-hero-img::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(transparent 40%,rgba(26,18,8,.9));
-}
-.cf-hero-name{
-  font-family:'Anton',sans-serif;font-size:22px;color:#fff;
-  position:relative;z-index:1;line-height:1;
-}
-.cf-body{padding:14px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
-.cf-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3)}
-.cf-items{display:flex;flex-direction:column;gap:7px}
-.cf-item{
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(255,255,255,.05);border-radius:8px;padding:9px 12px;
-}
-.cf-item-name{font-size:10px;font-weight:600;color:rgba(255,255,255,.8)}
-.cf-item-price{font-family:'Anton',sans-serif;font-size:12px;color:#F5A623}
-.cf-book{
-  background:#F5A623;border-radius:8px;padding:12px;
-  text-align:center;font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#1a1208;
-}
- 
-/* ── LOYALTY SCREEN ── */
-.phone-ui-loyalty{
-  background:#fff;height:100%;
-  font-family:'Barlow',sans-serif;
-  display:flex;flex-direction:column;
-}
-.ly-header{
-  background:linear-gradient(160deg,var(--fire),#c43d00);
-  padding:40px 18px 20px;
-  position:relative;overflow:hidden;
-}
-.ly-header::before{
-  content:'';position:absolute;
-  width:100px;height:100px;border-radius:50%;
-  background:rgba(255,255,255,.08);top:-20px;right:-20px;
-}
-.ly-tag{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:5px}
-.ly-name{font-family:'Anton',sans-serif;font-size:20px;color:#fff;line-height:1}
-.ly-body{padding:14px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
-.ly-progress-label{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#aaa}
-.ly-stamps{
-  display:grid;grid-template-columns:repeat(5,1fr);gap:6px;
-}
-.ly-stamp{
-  aspect-ratio:1;border-radius:8px;
-  border:1.5px solid #eee;
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;
-}
-.ly-stamp.filled{background:#F5530A;border-color:#F5530A}
-.ly-stamp.filled::after{content:'✓';font-size:11px;color:#fff;font-weight:900}
-.ly-stamp:not(.filled)::after{content:'';width:6px;height:6px;border-radius:50%;background:#eee}
-.ly-reward{
-  background:#fff5f2;border:1.5px solid rgba(245,83,10,.2);
-  border-radius:10px;padding:12px 14px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.ly-reward-text{font-size:11px;font-weight:700;color:#1a1a1a;line-height:1.4}
-.ly-reward-badge{
-  background:#F5530A;color:#fff;border-radius:6px;
-  padding:5px 10px;font-size:9px;font-weight:800;letter-spacing:.05em;
-  text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;
-}
- 
-/* ─── CAROUSEL DOTS ─────────────────────────────── */
-.phone-dots{
-  display:flex;gap:7px;justify-content:center;
-  margin-top:20px;position:relative;z-index:10;
-}
-.phone-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:rgba(12,12,12,.18);transition:all .35s;
+  --text-dark: #103B46;     
+  --text-muted: #5D8089;    
   
-}
-.phone-dot.on{background:var(--fire);width:20px;border-radius:3px}
- 
-/* ─── SLIDE LABEL ───────────────────────────────── */
-.phone-label{
-  text-align:center;margin-top:12px;
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:.75rem;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--mid);
-  transition:opacity .35s;
-  position:relative;z-index:10;
-}
- 
-/* swipe hint */
-.swipe-hint{
-  display:flex;align-items:center;gap:8px;justify-content:center;
-  margin-top:8px;
-  font-size:.72rem;color:var(--mid);opacity:.5;
-  letter-spacing:.06em;text-transform:uppercase;
-  font-family:'Barlow Condensed',sans-serif;font-weight:600;
-}
-.swipe-hint svg{opacity:.4}
- 
-/* Hero bottom strip */
-.hero-strip{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  border-top:1px solid var(--rule);
-  position:relative;z-index:1;
-  margin-top:60px;
-}
-.hs-item{
-  padding:22px 28px;
-  border-right:1px solid var(--rule);
-  display:flex;flex-direction:column;gap:4px;
-  transition:background .3s;
-}
-.hs-item:last-child{border-right:none}
-.hs-item:hover{background:var(--ink)}
-.hs-item:hover .hs-icon,.hs-item:hover .hs-label,.hs-item:hover .hs-sub{color:#fff !important;opacity:1}
-.hs-icon{font-size:1.2rem;margin-bottom:6px}
-.hs-label{
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:.92rem;letter-spacing:.04em;
-  text-transform:uppercase;color:var(--ink);
-  transition:color .3s;
-}
-.hs-sub{font-size:.75rem;color:var(--mid);transition:color .3s;opacity:.7}
- 
-/* ─── MARQUEE ─────────────────────────────────────── */
-.mq{
-  background:var(--ink);overflow:hidden;
-  padding:14px 0;
-}
-.mq-track{
-  display:flex;white-space:nowrap;
-  animation:mq 18s linear infinite;
-}
-.mq-track:hover{animation-play-state:paused}
-.mi{
-  display:inline-flex;align-items:center;gap:20px;
-  flex-shrink:0;padding:0 20px;
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:.88rem;letter-spacing:.12em;
-  text-transform:uppercase;color:rgba(245,240,232,.3);
-}
-.mi.on{color:var(--fire)}
-.mi-dot{width:4px;height:4px;border-radius:50%;background:rgba(245,83,10,.4);flex-shrink:0}
-@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
- 
-/* ─── SECTION BASE ────────────────────────────────── */
-section{padding:100px 48px}
-.label{
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:.75rem;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--fire);
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:20px;
-}
-.label::after{content:'';flex:1;max-width:40px;height:1px;background:var(--fire)}
-.sec-title{
-  font-family:'Anton',sans-serif;
-  font-size:clamp(2.4rem,5vw,5rem);
-  line-height:.95;letter-spacing:-.01em;
-  color:var(--ink);
-}
-.sec-sub{
-  font-size:1rem;line-height:1.75;
-  color:var(--mid);max-width:480px;margin-top:16px;
-}
- 
-/* ─── SERVICES ────────────────────────────────────── */
-#services{
-  background:var(--off);
-  padding-top:80px;padding-bottom:0;
-}
-.svc-top{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:80px;align-items:end;
-  margin-bottom:64px;
-  padding-bottom:40px;
-  border-bottom:1px solid var(--rule);
-}
- 
-/* Service rows — magazine list style */
-.svc-list{}
-.svc-row{
-  display:grid;
-  grid-template-columns:60px 1fr auto;
-  align-items:start;
-  gap:0;
-  padding:32px 0;
-  border-bottom:1px solid var(--rule);
+  --brand-teal: #195868;    
+  --brand-orange: #F89B4C;  
+  --brand-mint: #66B59B;    
+  --brand-purple: #928BE2;  
+  --brand-pink: #F37D8B;    
+
+  --card-teal: #1F6A7D;
+  --card-mint: #E1F2ED;
+  --card-purple: #EAE8F7;
+  --card-orange: #FDECDC;
+  --card-pink: #FDE8EA;
+
+  --shadow-soft: 0 12px 30px -10px rgba(25, 88, 104, 0.15);
+  --shadow-float: 0 20px 40px -10px rgba(25, 88, 104, 0.2);
   
-  transition:background .3s;
-  position:relative;
-  overflow:hidden;
+  --font-main: 'Poppins', sans-serif;
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1); 
 }
-.svc-row::before{
-  content:'';position:absolute;left:0;bottom:0;right:0;top:0;
-  background:var(--ink);
-  transform:scaleX(0);transform-origin:left;
-  transition:transform .5s cubic-bezier(.22,1,.36,1);
-  z-index:0;
+
+/* ─── RESET & BASE ────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background-color: var(--bg-cream); color: var(--text-dark);
+  font-family: var(--font-main); overflow-x: hidden;
+  -webkit-font-smoothing: antialiased; line-height: 1.6;
 }
-.svc-row:hover::before{transform:scaleX(1)}
-.svc-row>*{position:relative;z-index:1}
-.svc-row:hover .sr-num{color:rgba(245,83,10,.6)}
-.svc-row:hover .sr-name{color:#fff}
-.svc-row:hover .sr-desc{color:rgba(245,240,232,.45)}
-.svc-row:hover .sr-tag{background:rgba(255,255,255,.08);color:rgba(245,240,232,.6)}
-.svc-row:hover .sr-arrow{color:var(--fire);transform:translate(4px,-4px)}
- 
-.sr-num{
-  font-family:'Anton',sans-serif;
-  font-size:1rem;color:rgba(12,12,12,.2);
-  padding-top:4px;
-  transition:color .4s;
+
+/* ─── DECORATIVE BLOBS ────────────────────────────── */
+.blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.4; z-index: 0; pointer-events: none; }
+.blob-1 { top: -100px; left: -100px; width: 400px; height: 400px; background: var(--brand-orange); }
+.blob-2 { top: 30%; right: -150px; width: 500px; height: 500px; background: var(--brand-mint); }
+.blob-3 { bottom: -100px; left: 20%; width: 600px; height: 600px; background: var(--brand-purple); }
+
+/* ─── TYPOGRAPHY & BUTTONS ────────────────────────── */
+h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: var(--text-dark); }
+.pill-badge {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px;
+  background: var(--bg-white); border-radius: 50px; font-size: 0.9rem; font-weight: 600; color: var(--text-muted);
+  box-shadow: var(--shadow-soft); margin-bottom: 24px; border: 2px solid #F0E8E2;
 }
-.sr-body{padding:0 24px 0 0}
-.sr-name{
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:1.6rem;letter-spacing:.01em;
-  text-transform:uppercase;color:var(--ink);
-  margin-bottom:8px;transition:color .4s;line-height:1;
+.pill-badge span { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--brand-orange); }
+
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--brand-orange); color: #FFF; font-weight: 700; font-size: 1.05rem;
+  padding: 16px 36px; border-radius: 50px; text-decoration: none;
+  transition: all 0.3s var(--spring); box-shadow: 0 10px 25px rgba(248, 155, 76, 0.3); border: none; cursor: pointer;
 }
-.sr-desc{
-  font-size:.875rem;line-height:1.65;color:var(--mid);
-  max-width:520px;transition:color .4s;
+.btn-primary:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 15px 35px rgba(248, 155, 76, 0.4); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--bg-white); color: var(--text-dark); font-weight: 700; font-size: 1.05rem;
+  padding: 16px 36px; border-radius: 50px; text-decoration: none;
+  transition: all 0.3s var(--spring); box-shadow: var(--shadow-soft); border: 2px solid transparent;
 }
-.sr-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
-.sr-tag{
-  font-size:.68rem;font-weight:600;letter-spacing:.07em;
-  text-transform:uppercase;
-  background:rgba(12,12,12,.06);color:var(--mid);
-  padding:4px 10px;border-radius:2px;
-  transition:all .4s;
+.btn-secondary:hover { transform: translateY(-4px); border-color: var(--brand-mint); }
+
+/* ─── FLOATING PILL NAV & MOBILE MENU ─────────────── */
+.nav-wrap { position: fixed; top: 24px; left: 0; right: 0; z-index: 100; display: flex; justify-content: center; padding: 0 24px; }
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; max-width: 900px; padding: 12px 24px 12px 24px;
+  background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-radius: 100px; box-shadow: var(--shadow-soft); border: 2px solid rgba(255,255,255,0.5);
+  transition: all 0.3s;
 }
-.sr-arrow{
-  color:var(--ink);opacity:.3;
-  transition:all .35s cubic-bezier(.22,1,.36,1);
-  padding-top:4px;
-  flex-shrink:0;
+.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.nav-logo img { height: 36px; width: auto; object-fit: contain; display: block; }
+.logo-text { font-family: var(--font-main); font-weight: 800; font-size: 1.25rem; color: var(--brand-teal); }
+.logo-text span { color: var(--brand-orange); }
+
+.nav-menu { display: flex; gap: 32px; list-style: none; }
+.nav-menu a { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.nav-menu a:hover { color: var(--brand-teal); }
+.nav-cta {
+  background: var(--brand-teal); color: #FFF; font-weight: 600; padding: 12px 24px;
+  border-radius: 50px; text-decoration: none; font-size: 0.95rem; transition: transform 0.3s var(--spring);
 }
- 
-/* ─── STATS BAND ──────────────────────────────────── */
-#stats{
-  background:var(--ink);
-  padding:72px 48px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:0;
+.nav-cta:hover { transform: scale(1.05); }
+
+/* Hamburger Menu Icon */
+.ham { display: none; flex-direction: column; gap: 5px; cursor: pointer; position: relative; z-index: 101; }
+.ham span { display: block; width: 24px; height: 3px; background: var(--text-dark); border-radius: 3px; transition: 0.3s; }
+.ham.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.ham.open span:nth-child(2) { opacity: 0; }
+.ham.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* Fullscreen Mobile Menu */
+.mob-menu {
+  position: fixed; inset: 0; background: rgba(255, 247, 242, 0.98); backdrop-filter: blur(10px);
+  z-index: 99; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: 0.4s ease; gap: 32px;
 }
-.stat-item{
-  padding:0 40px;
-  border-right:1px solid rgba(245,240,232,.08);
-  text-align:center;
+.mob-menu.open { opacity: 1; pointer-events: auto; }
+.mob-menu a { font-family: var(--font-main); font-size: 2rem; font-weight: 700; color: var(--brand-teal); text-decoration: none; }
+
+/* ─── HERO SECTION ────────────────────────────────── */
+#hero {
+  padding: 160px 24px 80px; min-height: 100vh; position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; max-width: 1300px; margin: 0 auto;
 }
-.stat-item:first-child{padding-left:0;text-align:left}
-.stat-item:last-child{border-right:none;text-align:right}
-.stat-num{
-  font-family:'Anton',sans-serif;
-  font-size:clamp(3rem,6vw,6rem);
-  color:#fff;line-height:1;
-  display:flex;align-items:baseline;gap:4px;
-  justify-content:center;
+.hero-content { display: flex; flex-direction: column; align-items: flex-start; text-align: left; position: relative; z-index: 2;}
+.hero-title { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; margin-bottom: 24px; line-height: 1.1; }
+.hero-title .highlight { position: relative; display: inline-block; z-index: 1; color: var(--brand-teal); }
+.hero-title .highlight::after {
+  content: ''; position: absolute; bottom: 8px; left: -5px; right: -5px; height: 16px;
+  background: var(--brand-orange); opacity: 0.3; z-index: -1; border-radius: 10px; transform: rotate(-2deg);
 }
-.stat-item:first-child .stat-num{justify-content:flex-start}
-.stat-item:last-child .stat-num{justify-content:flex-end}
-.stat-num sup{font-size:.45em;color:var(--fire)}
-.stat-label{
-  font-size:.78rem;font-weight:600;letter-spacing:.1em;
-  text-transform:uppercase;color:rgba(245,240,232,.3);
-  margin-top:8px;
+.hero-subtitle { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; max-width: 500px; font-weight: 500; }
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* ─── 3D PHONE CAROUSEL (SOFT & ROUNDED) ──────────── */
+.showcase-stage {
+  width: 100%; position: relative; height: 600px; perspective: 1500px;
+  display: flex; align-items: center; justify-content: center; z-index: 2;
 }
- 
-/* ─── HOW ─────────────────────────────────────────── */
-#how{background:var(--off)}
-.how-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:80px;align-items:start;margin-top:60px;
+.phone-slide {
+  position: absolute; width: 280px; transition: all 0.7s var(--spring);
+  cursor: grab; user-select: none; z-index: 1;
 }
-.how-steps{display:flex;flex-direction:column}
-.hw{
-  display:grid;grid-template-columns:48px 1fr;
-  gap:20px;padding:28px 0;
-  border-bottom:1px solid var(--rule);
-  
+.phone-slide:active { cursor: grabbing; }
+
+/* Visible Before/After States */
+.phone-slide.state-active { transform: translateX(0) scale(1); z-index: 10; opacity: 1; filter: blur(0); }
+.phone-slide.state-prev { transform: translateX(-220px) scale(0.85) rotateY(20deg); z-index: 5; opacity: 0.85; filter: blur(1px); }
+.phone-slide.state-next { transform: translateX(220px) scale(0.85) rotateY(-20deg); z-index: 5; opacity: 0.85; filter: blur(1px); }
+.phone-slide.state-far-prev { transform: translateX(-400px) scale(0.65) rotateY(35deg); z-index: 1; opacity: 0; pointer-events: none; }
+.phone-slide.state-far-next { transform: translateX(400px) scale(0.65) rotateY(-35deg); z-index: 1; opacity: 0; pointer-events: none; }
+
+/* White/Cream Phone Frame */
+.phone-frame {
+  width: 280px; height: 570px; position: relative;
+  background: #FFFFFF; border-radius: 50px; padding: 12px;
+  box-shadow: 0 30px 60px rgba(16, 59, 70, 0.15), inset 0 0 0 2px #F0E8E2;
 }
-.hw:first-child{border-top:1px solid var(--rule)}
-.hw:hover .hw-n{color:var(--fire)}
-.hw:hover .hw-title{color:var(--fire)}
-.hw-n{
-  font-family:'Anton',sans-serif;
-  font-size:1.5rem;color:rgba(12,12,12,.18);
-  transition:color .3s;line-height:1.2;
+.phone-screen {
+  position: relative; width: 100%; height: 100%; border-radius: 40px;
+  overflow: hidden; background: var(--bg-white); border: 2px solid #F0E8E2;
 }
-.hw-title{
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:1.15rem;letter-spacing:.04em;
-  text-transform:uppercase;color:var(--ink);
-  margin-bottom:6px;transition:color .3s;
+.phone-notch { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 80px; height: 26px; background: #FFFFFF; border-radius: 20px; z-index: 50; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+/* Playful UIs inside Phones */
+.ui-base { height: 100%; display: flex; flex-direction: column; padding-top: 48px; background: var(--bg-cream); position: relative; }
+.ui-status { position: absolute; top: 0; left: 0; right: 0; height: 48px; display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; font-size: 11px; font-weight: 700; color: var(--text-dark); z-index: 40; }
+
+/* UI 1: Dashboard */
+.ui-dash { background: #FFF; padding: 48px 20px 20px; }
+.ui-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.ui-dash h3 { font-size: 22px; margin-bottom: 20px; }
+.ui-stats-row { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
+.ui-stat-box { flex: 1; background: var(--card-mint); padding: 16px 12px; border-radius: 20px; text-align: center; }
+.ui-stat-box:nth-child(2) { background: var(--card-purple); }
+.ui-stat-num { font-size: 24px; font-weight: 800; margin-bottom: 4px; color: var(--brand-teal); }
+.ui-stat-label { font-size: 10px; font-weight: 600; color: var(--text-muted); }
+.ui-chart-area { background: var(--bg-cream); border-radius: 24px; padding: 20px; height: 180px; position: relative; display: flex; flex-direction: column; justify-content: flex-end; }
+
+/* UI 2: WhatsApp Cart */
+.ui-wa-cart { background: var(--card-orange); }
+.ui-wa-cart-inner { background: #FFF; margin: 48px 16px 16px; border-radius: 32px; padding: 20px; flex: 1; display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+.ui-wa-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 2px dashed #F0E8E2; }
+.ui-wa-item h4 { font-size: 14px; margin-bottom: 4px; }
+.ui-wa-btn { margin-top: auto; background: #25D366; color: #FFF; border-radius: 50px; padding: 16px; text-align: center; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); }
+
+/* UI 3: Doctor Appointment */
+.ui-doc { background: var(--card-mint); }
+.ui-doc-top { padding: 48px 20px 20px; text-align: center; }
+.ui-doc-av { width: 64px; height: 64px; border-radius: 50%; background: #FFF; margin: 0 auto 12px; border: 4px solid var(--brand-teal); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.ui-doc-card { background: #FFF; border-radius: 32px 32px 0 0; padding: 24px; flex: 1; box-shadow: 0 -10px 20px rgba(0,0,0,0.05); }
+.ui-cal-row { display: flex; gap: 12px; overflow: hidden; margin-bottom: 20px; }
+.ui-cal-day { background: var(--bg-cream); border-radius: 16px; padding: 12px 16px; text-align: center; flex: 1; }
+.ui-cal-day.active { background: var(--brand-teal); color: #FFF; }
+.ui-doc-slot { background: var(--card-mint); padding: 12px; border-radius: 12px; text-align: center; font-weight: 700; font-size: 12px; color: var(--brand-teal); margin-bottom: 8px; }
+
+/* UI 4: Fees Management (TTC Style) */
+.ui-fees { background: var(--card-purple); }
+.ui-fees-head { padding: 48px 20px 20px; }
+.ui-fees-card { background: #FFF; margin: 0 16px 16px; border-radius: 24px; padding: 20px; }
+.ui-fees-badge { display: inline-block; background: #FFE5E5; color: #D32F2F; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; margin-bottom: 12px; }
+.ui-fees-amt { font-size: 32px; font-weight: 800; color: var(--text-dark); line-height: 1; margin-bottom: 4px; }
+.ui-fees-btn { background: var(--brand-teal); color: #FFF; padding: 14px; border-radius: 16px; text-align: center; font-weight: 700; font-size: 12px; margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 6px;}
+
+/* UI 5: Review Generator */
+.ui-rev { background: var(--brand-pink); }
+.ui-rev-inner { background: #FFF; margin: 48px 16px 16px; border-radius: 32px; padding: 24px; flex: 1; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+.ui-stars { display: flex; justify-content: center; gap: 8px; font-size: 28px; margin: 20px 0; }
+.ui-rev-btn { background: var(--brand-orange); color: #FFF; padding: 16px; border-radius: 50px; font-weight: 700; font-size: 14px; margin-top: auto; }
+
+/* Carousel Controls */
+.controls { display: flex; justify-content: center; gap: 12px; margin-top: 24px; position: relative; z-index: 10; }
+.dot { width: 12px; height: 12px; border-radius: 50%; background: #E2D9D2; cursor: pointer; transition: 0.3s; }
+.dot.active { width: 36px; border-radius: 10px; background: var(--brand-orange); }
+.slide-label { text-align: center; font-weight: 700; color: var(--text-muted); margin-top: 16px; font-size: 1.1rem; }
+
+/* ─── METRICS / STATS (Progress Rings) ────────────── */
+#metrics { padding: 40px 24px; background: var(--bg-white); border-radius: 40px; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px; position: relative; z-index: 2; box-shadow: var(--shadow-float); }
+.metric-card { display: flex; align-items: center; gap: 20px; }
+.progress-ring { width: 70px; height: 70px; border-radius: 50%; background: conic-gradient(var(--brand-mint) 80%, #F0E8E2 0); display: flex; align-items: center; justify-content: center; position: relative; }
+.progress-ring::before { content: ''; width: 54px; height: 54px; border-radius: 50%; background: var(--bg-white); position: absolute; }
+.pr-inner { position: relative; font-weight: 800; font-size: 1.2rem; color: var(--brand-teal); }
+.metric-text h4 { font-size: 1.1rem; color: var(--brand-teal); margin-bottom: 4px; }
+.metric-text p { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+
+/* ─── CHUNKY SERVICES GRID ────────────────────────── */
+#services { padding: 120px 24px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+.sec-head { text-align: center; margin-bottom: 60px; }
+.sec-title { font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 16px; color: var(--brand-teal); }
+.sec-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 500; }
+
+.bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+.chunky-card {
+  border-radius: 40px; padding: 48px; display: flex; flex-direction: column; justify-content: space-between;
+  transition: transform 0.3s var(--spring); cursor: pointer; position: relative; overflow: hidden;
 }
-.hw-desc{font-size:.875rem;line-height:1.65;color:var(--mid)}
- 
-/* How right — big visual panel */
-.how-right-panel{
-  position:sticky;top:100px;
-  background:var(--ink);border-radius:8px;
-  padding:48px 40px;overflow:hidden;
+.chunky-card:hover { transform: translateY(-8px); }
+
+/* Card Variations */
+.card-1 { background: var(--card-teal); color: #FFF; }
+.card-1 h3 { color: #FFF; }
+.card-1 .cc-icon { background: rgba(255,255,255,0.1); color: #FFF; }
+.card-1 .btn-chunky { background: var(--brand-orange); color: #FFF; }
+
+.card-2 { background: var(--card-mint); color: var(--text-dark); }
+.card-2 .cc-icon { background: #FFF; color: var(--brand-mint); }
+.card-2 .btn-chunky { background: #FFF; color: var(--brand-teal); }
+
+.card-3 { background: var(--card-orange); color: var(--text-dark); }
+.card-3 .cc-icon { background: #FFF; color: var(--brand-orange); }
+.card-3 .btn-chunky { background: #FFF; color: var(--brand-teal); }
+
+.card-4 { background: var(--card-purple); color: var(--text-dark); }
+.card-4 .cc-icon { background: #FFF; color: var(--brand-purple); }
+.card-4 .btn-chunky { background: #FFF; color: var(--brand-teal); }
+
+.cc-icon { width: 64px; height: 64px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 32px; }
+.cc-title { font-size: 1.8rem; margin-bottom: 16px; }
+.cc-desc { font-size: 1.05rem; font-weight: 500; margin-bottom: 32px; opacity: 0.9; }
+.btn-chunky {
+  align-self: flex-start; padding: 12px 24px; border-radius: 50px; font-weight: 700;
+  text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s;
 }
-.hrp-glow{
-  position:absolute;width:300px;height:300px;
-  background:rgba(245,83,10,.12);border-radius:50%;
-  top:-80px;right:-80px;filter:blur(80px);pointer-events:none;
+.btn-chunky:hover { transform: scale(1.05); }
+
+/* ─── PROCESS TIMELINE ────────────────────────────── */
+#process { background: var(--bg-white); padding: 120px 24px; position: relative; }
+.process-container { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; position: relative; }
+.process-container::before {
+  content: ''; position: absolute; left: 40px; top: 0; bottom: 0; width: 4px;
+  background: var(--card-orange); border-radius: 4px;
 }
-.hrp-label{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:.72rem;font-weight:700;letter-spacing:.18em;
-  text-transform:uppercase;color:rgba(245,240,232,.3);
-  margin-bottom:12px;
+.process-card {
+  display: flex; gap: 32px; align-items: center; background: var(--bg-cream);
+  padding: 32px; border-radius: 32px; position: relative; z-index: 2;
+  box-shadow: var(--shadow-soft); transition: transform 0.3s;
 }
-.hrp-big{
-  font-family:'Anton',sans-serif;
-  font-size:clamp(3rem,7vw,7rem);
-  color:#fff;line-height:.9;
-  letter-spacing:-.01em;margin-bottom:40px;
+.process-card:hover { transform: translateX(10px); }
+.pc-node {
+  width: 80px; height: 80px; border-radius: 50%; background: var(--brand-orange); color: #FFF;
+  display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800;
+  flex-shrink: 0; box-shadow: 0 0 0 10px var(--bg-white);
 }
-.hrp-big span{color:var(--fire)}
-.hrp-list{display:flex;flex-direction:column;gap:12px}
-.hrp-li{
-  display:flex;align-items:center;gap:14px;
-  background:rgba(245,240,232,.05);
-  border-radius:4px;padding:13px 16px;
-  border-left:2px solid transparent;
-  transition:border-color .3s,background .3s;
+.pc-content h3 { font-size: 1.6rem; color: var(--brand-teal); margin-bottom: 8px; }
+.pc-content p { color: var(--text-muted); font-weight: 500; font-size: 1.1rem; }
+
+/* ─── CONTACT FORM ────────────────────────────────── */
+#contact { padding: 120px 24px; background: var(--brand-teal); color: #FFF; border-radius: 60px 60px 0 0; position: relative; overflow: hidden; }
+#contact .sec-title { color: #FFF; }
+#contact .sec-sub { color: rgba(255,255,255,0.8); }
+.contact-wrap { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 2; }
+.form-card { background: #FFF; padding: 48px; border-radius: 40px; box-shadow: var(--shadow-float); }
+.form-group { margin-bottom: 24px; }
+.form-label { display: block; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; font-size: 0.95rem; }
+.form-input {
+  width: 100%; padding: 16px 20px; border-radius: 20px; border: 2px solid #E1E8E9;
+  background: #F9FBFB; font-family: var(--font-main); font-size: 1rem; color: var(--text-dark); font-weight: 500;
+  transition: all 0.3s;
 }
-.hrp-li:hover{border-color:var(--fire);background:rgba(245,83,10,.08)}
-.hrp-li-dot{width:6px;height:6px;border-radius:50%;background:var(--fire);flex-shrink:0}
-.hrp-li-text{font-size:.875rem;color:rgba(245,240,232,.7);font-weight:500}
- 
-/* ─── WHY ─────────────────────────────────────────── */
-#why{background:var(--fire);padding:80px 48px}
-.why-inner{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:80px;align-items:center;
+.form-input:focus { outline: none; border-color: var(--brand-orange); background: #FFF; box-shadow: 0 0 0 4px rgba(248,155,76,0.1); }
+.btn-submit {
+  width: 100%; background: var(--brand-teal); color: #FFF; font-weight: 700; font-size: 1.1rem;
+  padding: 18px; border-radius: 50px; border: none; cursor: pointer; transition: 0.3s var(--spring);
 }
-.why-left .sec-title{color:#fff}
-.why-left .sec-sub{color:rgba(255,255,255,.65)}
-.why-left .label{color:rgba(255,255,255,.6)}
-.why-left .label::after{background:rgba(255,255,255,.4)}
-.why-right{display:flex;flex-direction:column;gap:14px}
-.wr{
-  background:rgba(0,0,0,.12);border-radius:6px;
-  padding:24px 26px;display:flex;gap:16px;
-  transition:background .3s,transform .3s;
-}
-.wr:hover{background:rgba(0,0,0,.22);transform:translateX(8px)}
-.wr-icon{
-  width:40px;height:40px;border-radius:5px;
-  background:rgba(255,255,255,.15);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;flex-shrink:0;
-}
-.wr-title{
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:1rem;letter-spacing:.04em;
-  text-transform:uppercase;color:#fff;margin-bottom:5px;
-}
-.wr-desc{font-size:.85rem;line-height:1.6;color:rgba(255,255,255,.6)}
- 
-/* ─── TESTIMONIALS ────────────────────────────────── */
-#testimonials{background:var(--off)}
-.test-header{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  flex-wrap:wrap;gap:24px;margin-bottom:52px;
-}
-.test-row{
-  display:grid;
-  grid-template-columns:1.2fr 1fr 1fr;
-  gap:1px;background:var(--rule);
-  border:1px solid var(--rule);
-}
-.tc{
-  background:var(--off);
-  padding:40px 36px;
-  transition:background .35s;
-}
-.tc:hover{background:var(--ink)}
-.tc:hover .tc-quote,.tc:hover .tc-text,.tc:hover .tc-name,.tc:hover .tc-role{color:rgba(245,240,232,.9) !important}
-.tc:hover .tc-stars{color:var(--fire)}
-.tc-stars{font-size:.78rem;letter-spacing:3px;color:var(--fire);margin-bottom:18px;transition:color .3s}
-.tc-quote{
-  font-family:'Anton',sans-serif;
-  font-size:3rem;color:var(--fire);
-  line-height:.7;margin-bottom:14px;transition:color .3s;
-}
-.tc-text{
-  font-size:.9rem;line-height:1.75;color:var(--mid);
-  margin-bottom:24px;font-style:italic;transition:color .3s;
-}
-.tc-author{display:flex;align-items:center;gap:12px}
-.tc-av{
-  width:36px;height:36px;border-radius:50%;
-  background:linear-gradient(135deg,var(--fire),var(--gold));
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:.85rem;color:#fff;
-  flex-shrink:0;
-}
-.tc-name{
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:.9rem;letter-spacing:.04em;
-  text-transform:uppercase;color:var(--ink);transition:color .3s;
-}
-.tc-role{font-size:.75rem;color:var(--mid);margin-top:2px;transition:color .3s}
- 
-/* ─── CTA ─────────────────────────────────────────── */
-#cta{
-  background:var(--ink);
-  padding:120px 48px;
-  position:relative;overflow:hidden;
-}
-.cta-glow{
-  position:absolute;width:500px;height:500px;
-  background:rgba(245,83,10,.1);border-radius:50%;
-  top:-100px;right:-100px;filter:blur(120px);pointer-events:none;
-}
-.cta-glow2{
-  position:absolute;width:300px;height:300px;
-  background:rgba(245,166,35,.06);border-radius:50%;
-  bottom:0;left:10%;filter:blur(80px);pointer-events:none;
-}
-.cta-inner{position:relative;z-index:1}
-.cta-tag{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:.75rem;font-weight:700;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--fire);
-  display:flex;align-items:center;gap:10px;margin-bottom:24px;
-}
-.cta-tag::before{content:'';width:20px;height:1.5px;background:var(--fire)}
-.cta-title{
-  font-family:'Anton',sans-serif;
-  font-size:clamp(3.5rem,9vw,10rem);
-  line-height:.92;letter-spacing:-.02em;
-  color:#fff;margin-bottom:40px;
-}
-.cta-title .outline{
-  -webkit-text-stroke:1.5px #fff;
-  color:transparent;
-}
-.cta-title .fire{color:var(--fire)}
-.cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.btn-cta-fire{
-  display:inline-flex;align-items:center;gap:10px;
-  background:var(--fire);color:#fff;
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:.95rem;letter-spacing:.1em;
-  text-transform:uppercase;
-  padding:16px 36px;border-radius:4px;
-  text-decoration:none;
-  transition:all .35s cubic-bezier(.22,1,.36,1);
-  box-shadow:0 0 0 0 rgba(245,83,10,.4);
-}
-.btn-cta-fire:hover{
-  transform:translateY(-3px);
-  box-shadow:0 0 0 10px rgba(245,83,10,0);
-  background:#fff;color:var(--fire);
-}
-.btn-cta-ghost{
-  display:inline-flex;align-items:center;gap:10px;
-  background:transparent;color:rgba(245,240,232,.5);
-  font-size:.95rem;font-weight:500;
-  padding:16px 36px;border-radius:4px;
-  border:1px solid rgba(245,240,232,.15);
-  text-decoration:none;
-  transition:all .3s;
-}
-.btn-cta-ghost:hover{border-color:rgba(245,240,232,.4);color:#fff}
- 
+.btn-submit:hover { background: var(--brand-orange); transform: translateY(-4px); }
+
 /* ─── FOOTER ──────────────────────────────────────── */
-footer{
-  background:var(--ink);
-  border-top:1px solid rgba(245,240,232,.07);
-  padding:60px 48px 28px;
-}
-.ft{display:flex;justify-content:space-between;gap:48px;flex-wrap:wrap;margin-bottom:52px}
-.ft-brand{max-width:240px}
-.ft-logo{
-  display:flex;align-items:center;gap:8px;margin-bottom:14px;
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:1.05rem;letter-spacing:.05em;
-  text-transform:uppercase;color:#fff;text-decoration:none;
-}
-.ft-logo em{color:var(--fire);font-style:normal}
-.ft-tagline{font-size:.83rem;color:rgba(245,240,232,.3);line-height:1.65}
-.ft-socials{display:flex;gap:8px;margin-top:20px}
-.ft-s{
-  width:34px;height:34px;border-radius:4px;
-  border:1px solid rgba(245,240,232,.1);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.85rem;color:rgba(245,240,232,.35);
-  text-decoration:none;transition:all .25s;
-}
-.ft-s:hover{background:var(--fire);border-color:var(--fire);color:#fff}
-.ft-col{}
-.ft-col-head{
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:.72rem;letter-spacing:.14em;
-  text-transform:uppercase;color:rgba(245,240,232,.3);
-  margin-bottom:16px;
-}
-.ft-links{list-style:none;display:flex;flex-direction:column;gap:8px}
-.ft-links a{font-size:.85rem;color:rgba(245,240,232,.35);text-decoration:none;transition:color .2s}
-.ft-links a:hover{color:var(--fire)}
-.ft-bar{
-  border-top:1px solid rgba(245,240,232,.06);
-  padding-top:22px;
-  display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:10px;
-}
-.ft-copy{font-size:.78rem;color:rgba(245,240,232,.2)}
-.ft-made{font-size:.78rem;color:rgba(245,240,232,.2)}
-.ft-made span{color:var(--fire)}
- 
-/* ─── REVEAL ──────────────────────────────────────── */
-.r{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
-.r.in{opacity:1;transform:none}
-.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
-.d4{transition-delay:.32s}.d5{transition-delay:.4s}
- 
+footer { background: var(--brand-teal); padding: 0 24px 60px; color: #FFF; text-align: center; }
+.ft-logo { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; text-decoration: none; }
+.ft-logo img { height: 40px; width: auto; filter: brightness(0) invert(1); } /* Kept white only in the dark footer */
+.ft-logo .logo-text { color: #FFF; font-size: 1.5rem; }
+.ft-links { display: flex; justify-content: center; gap: 32px; margin-bottom: 40px; }
+.ft-links a { color: rgba(255,255,255,0.8); font-weight: 600; text-decoration: none; }
+.ft-links a:hover { color: #FFF; }
+.ft-copy { color: rgba(255,255,255,0.5); font-size: 0.9rem; font-weight: 500; }
+
 /* ─── RESPONSIVE ──────────────────────────────────── */
-@media(max-width:1024px){
-  .hero-main{grid-template-columns:1fr;gap:0;padding:100px 48px 0;min-height:auto}
-  .hero-left{padding-right:0;padding-bottom:40px;border-bottom:1px solid var(--rule)}
-  .hero-right{padding-top:40px;min-height:500px}
-  .phone-scene{height:460px}
-  .hero-strip{grid-template-columns:1fr 1fr}
-  .hs-item:nth-child(2){border-right:none}
-  #stats{grid-template-columns:1fr 1fr;gap:40px}
-  .stat-item{text-align:left !important;padding-left:0 !important}
-  .stat-num{justify-content:flex-start !important}
-  .svc-top{grid-template-columns:1fr}
-  .how-grid{grid-template-columns:1fr}
-  .how-right-panel{position:static}
-  .why-inner{grid-template-columns:1fr}
-  .test-row{grid-template-columns:1fr}
-  .cta-title{font-size:clamp(3rem,12vw,7rem)}
+@media (max-width: 1024px) {
+  #hero { grid-template-columns: 1fr; text-align: center; padding-top: 140px; }
+  .hero-content { align-items: center; }
+  .hero-actions { justify-content: center; }
+  .bento-grid { grid-template-columns: 1fr; }
+  .contact-wrap { grid-template-columns: 1fr; }
 }
-@media(max-width:768px){
-  nav{padding:0 24px}
-  section{padding:80px 24px}
-  #stats{padding:56px 24px}
-  #cta{padding:80px 24px}
-  footer{padding:48px 24px 24px}
-  .nav-menu{display:none}
-  .nav-menu.open{
-    display:flex;flex-direction:column;gap:28px;
-    position:fixed;inset:0;top:64px;
-    background:var(--off);padding:48px 24px;z-index:199;
-  }
-  .nav-menu.open a{font-size:1.3rem;opacity:.8}
-  .ham{display:flex}
-  .hero-main{padding:90px 24px 0}
-  .hero-right{min-height:420px}
-  .phone-scene{height:400px}
-  .phone-slide.state-prev,.phone-slide.state-next{opacity:0.22}
-  .hero-strip{grid-template-columns:1fr 1fr}
-  .hs-item{padding:16px}
-  .svc-row{grid-template-columns:44px 1fr}
-  .sr-arrow{display:none}
-  .why-inner,.how-grid{grid-template-columns:1fr}
-  .ft{flex-direction:column;gap:36px}
+@media (max-width: 768px) {
+  nav { padding: 12px 20px; }
+  .nav-menu, .nav-cta { display: none; }
+  .ham { display: flex; }
+  .hero-title { font-size: 2.8rem; }
+  .showcase-stage { height: 500px; }
+  
+  /* Retain visibility on Mobile */
+  .phone-slide.state-prev { transform: translateX(-120px) scale(0.75) rotateY(20deg); opacity: 0.8; filter: blur(1px); }
+  .phone-slide.state-next { transform: translateX(120px) scale(0.75) rotateY(-20deg); opacity: 0.8; filter: blur(1px); }
+
+  .chunky-card { padding: 32px; }
+  .process-container::before { left: 30px; }
+  .process-card { padding: 24px; gap: 20px; }
+  .pc-node { width: 60px; height: 60px; font-size: 1.5rem; }
+  .form-card { padding: 32px; }
+  #contact { border-radius: 40px 40px 0 0; }
 }
 </style>
 </head>
 <body>
- 
-<!-- ── NAV ─────────────────────────────────────────── -->
-<nav id="nav" class="bg">
-  <a href="#" class="nav-logo">
-    <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Seen & Sold" style="height:36px;width:auto;object-fit:contain;display:block;"/>
-  </a>
- 
-  <ul class="nav-menu" id="nm">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#how">Process</a></li>
-    <li><a href="#why">Why Us</a></li>
-    <li><a href="#testimonials">Stories</a></li>
-  </ul>
- 
-  <div style="display:flex;align-items:center;gap:12px">
-    <a href="#cta" class="nav-pill">Get Started ↗</a>
-    <div class="ham" id="ham" onclick="this.classList.toggle('open');document.getElementById('nm').classList.toggle('open')">
+
+<!-- Background Blobs -->
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<!-- Floating Navigation -->
+<div class="nav-wrap">
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo"/>
+      <span class="logo-text">Seen<span>&amp;</span>Sold</span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">How it Works</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get Started</a>
+    <div class="ham" id="hamBtn">
       <span></span><span></span><span></span>
     </div>
-  </div>
-</nav>
- 
-<!-- ── HERO ─────────────────────────────────────────── -->
+  </nav>
+</div>
+
+<!-- Mobile Menu Overlay -->
+<div class="mob-menu" id="mobNav">
+  <a href="#services" class="mob-link">Services</a>
+  <a href="#process" class="mob-link">How it Works</a>
+  <a href="#contact" class="mob-link" style="color: var(--brand-orange);">Get Started</a>
+</div>
+
+<!-- Hero Section -->
 <section id="hero">
- 
-  <div class="hero-main">
- 
-    <!-- LEFT: Text + CTA -->
-    <div class="hero-left">
-      <div class="hero-logo-lockup">
-        <img src="https://i.postimg.cc/T3D8mR6b/1000065010.png" alt="Seen & Sold"/>
-      </div>
-      <p class="hero-sub">
-        RUN YOUR<br/><span class="fire">BUSINESS</span><br/><span class="stroke">FROM YOUR</span><br/>MOBILE.
-      </p>
-      <div class="hero-cta-row">
-        <a href="#cta" class="btn-fire">
-          Start Growing
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
-        </a>
-        <a href="#services" class="btn-text-link">
-          View Services
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
+  <div class="hero-content">
+    <div class="pill-badge"><span></span> Easy Tech for Local Shops</div>
+    <h1 class="hero-title">Grow your shop.<br><span class="highlight">Zero tech stress.</span></h1>
+    <p class="hero-subtitle">Friendly, powerful websites, ordering systems, and appointment apps built for clinics, salons, and retail. Manage it all from your phone.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Start My Build</a>
+      <a href="#services" class="btn-secondary">See Features</a>
     </div>
- 
-    <!-- RIGHT: 3D Swipeable Phone Carousel -->
-    <div class="hero-right">
-      <div class="carousel-offer">
-        <div class="co-tag">What We Offer</div>
-        <div class="co-title">EVERY TOOL<br/><span class="co-fire">YOUR SHOP</span><br/>NEEDS.</div>
-      </div>
-      <div class="phone-scene" id="phoneScene">
- 
-        <!-- SLIDE 0: Restaurant QR Menu -->
-        <div class="phone-slide state-active" data-index="0">
-          <div class="phone-frame">
-            <div class="phone-btn-power"></div>
-            <div class="phone-btn-silent"></div>
-            <div class="phone-btn-vol-up"></div>
-            <div class="phone-btn-vol-dn"></div>
-            <div class="phone-bezel">
-            <div class="phone-screen">
-              <div class="phone-ui-restaurant">
-                <div class="sc-statusbar" style="background:#16213e;color:rgba(255,255,255,.6)">
-                  <span class="sc-sb-time">9:41</span>
-                  <div class="sc-sb-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+  </div>
+
+  <!-- Soft 3D Phone Showcase (5 Slides) -->
+  <div class="showcase-stage">
+    <div id="phoneScene" style="width:100%; height:100%; position:relative; display:flex; align-items:center; justify-content:center;">
+      
+      <!-- Slide 1: Owner Dashboard -->
+      <div class="phone-slide state-active" data-index="0">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="ui-base ui-dash">
+              <!-- Top Left/Right Structure -->
+              <div class="ui-status">
+                <span>9:41</span>
+                <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo" style="height: 18px; width: auto; object-fit: contain;"/>
+              </div>
+              <div class="phone-notch"></div>
+              
+              <div class="ui-header-row">
+                <h3>Shop Overview</h3>
+              </div>
+              <div class="ui-stats-row">
+                <div class="ui-stat-box">
+                  <div class="ui-stat-num" style="color:var(--brand-mint);">44</div>
+                  <div class="ui-stat-label">Total Orders</div>
                 </div>
-                <div class="ru-header">
-                  <div class="ru-tag">QR Menu</div>
-                  <div class="ru-name">SPICE<br/>GARDEN</div>
-                  <div class="ru-sub">⭐ 4.9 · Open Now · Table 7</div>
-                </div>
-                <div class="ru-cats">
-                  <div class="ru-cat on">Starters</div>
-                  <div class="ru-cat">Mains</div>
-                  <div class="ru-cat">Desserts</div>
-                  <div class="ru-cat">Drinks</div>
-                </div>
-                <div class="ru-items">
-                  <div class="ru-item">
-                    <div class="ru-item-info">
-                      <div class="ru-item-name">Paneer Tikka</div>
-                      <div class="ru-item-desc">Grilled cottage cheese, spiced marinade</div>
-                    </div>
-                    <div class="ru-item-price">₹180</div>
-                  </div>
-                  <div class="ru-item">
-                    <div class="ru-item-info">
-                      <div class="ru-item-name">Veg Sampler Platter</div>
-                      <div class="ru-item-desc">Crispy assorted snacks, chutneys</div>
-                    </div>
-                    <div class="ru-item-price">₹220</div>
-                  </div>
-                  <div class="ru-item">
-                    <div class="ru-item-info">
-                      <div class="ru-item-name">Chicken 65</div>
-                      <div class="ru-item-desc">South-style crispy chicken</div>
-                    </div>
-                    <div class="ru-item-price">₹260</div>
-                  </div>
-                </div>
-                <div style="padding:12px 18px;flex-shrink:0">
-                  <div style="background:#F5530A;border-radius:8px;padding:12px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:.06em;color:#fff;text-transform:uppercase">
-                    Place Order — ₹180
-                  </div>
+                <div class="ui-stat-box">
+                  <div class="ui-stat-num" style="color:var(--brand-purple);">12</div>
+                  <div class="ui-stat-label">Bookings</div>
                 </div>
               </div>
-            </div>
-            <div class="phone-island"></div>
-            <div class="phone-home"></div>
-            <div class="phone-shine"></div>
+              <div style="font-size:32px; font-weight:800; margin-bottom:8px;">78%</div>
+              <div style="font-size:12px; color:var(--text-muted); font-weight:600; margin-bottom:16px;">Revenue Growth</div>
+              <div class="ui-chart-area">
+                <svg viewBox="0 0 100 50" style="width:100%; height:100%; overflow:visible;">
+                  <path d="M0,40 Q15,10 30,30 T60,20 T100,5" fill="none" stroke="var(--brand-pink)" stroke-width="4" stroke-linecap="round"/>
+                  <circle cx="60" cy="20" r="4" fill="var(--text-dark)"/>
+                  <rect x="50" y="0" width="20" height="12" rx="6" fill="var(--text-dark)"/>
+                  <text x="60" y="8" fill="#FFF" font-size="6" font-family="Poppins" font-weight="bold" text-anchor="middle">78%</text>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
- 
-        <!-- SLIDE 1: Barber Booking -->
-        <div class="phone-slide state-next" data-index="1">
-          <div class="phone-frame">
-            <div class="phone-btn-power"></div>
-            <div class="phone-btn-silent"></div>
-            <div class="phone-btn-vol-up"></div>
-            <div class="phone-btn-vol-dn"></div>
-            <div class="phone-bezel">
-            <div class="phone-screen">
-              <div class="phone-ui-barber">
-                <div class="sc-statusbar" style="background:#0f0f0f;color:rgba(255,255,255,.4)">
-                  <span class="sc-sb-time">9:41</span>
-                  <div class="sc-sb-icons"><span>●●●</span><span>🔋</span></div>
-                </div>
-                <div class="bb-header">
+      </div>
+
+      <!-- Slide 2: WhatsApp Ordering (Cart) -->
+      <div class="phone-slide state-next" data-index="1">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="ui-base ui-wa-cart">
+              <!-- Top Left/Right Structure -->
+              <div class="ui-status">
+                <span>9:41</span>
+                <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo" style="height: 18px; width: auto; object-fit: contain;"/>
+              </div>
+              <div class="phone-notch"></div>
+              
+              <div style="padding: 48px 20px 0;">
+                <h3 style="color:var(--text-dark); font-size:24px;">Your Cart</h3>
+              </div>
+              <div class="ui-wa-cart-inner">
+                <div class="ui-wa-item">
                   <div>
-                    <div class="bb-tag">Barber Booking</div>
-                    <div class="bb-name">SHARP<br/>CUTS</div>
+                    <h4>Paneer Tikka</h4>
+                    <p style="font-size:10px; color:var(--text-muted);">2x Portion</p>
                   </div>
-                  <div class="bb-avatar">SC</div>
+                  <div style="font-weight:700;">₹360</div>
                 </div>
-                <div class="bb-slots-label">Pick a time — Today</div>
-                <div class="bb-slots">
-                  <div class="bb-slot">10:00</div>
-                  <div class="bb-slot on">11:30</div>
-                  <div class="bb-slot">13:00</div>
-                  <div class="bb-slot">14:30</div>
-                  <div class="bb-slot">16:00</div>
-                  <div class="bb-slot">17:30</div>
+                <div class="ui-wa-item">
+                  <div>
+                    <h4>Garlic Naan</h4>
+                    <p style="font-size:10px; color:var(--text-muted);">1x Portion</p>
+                  </div>
+                  <div style="font-weight:700;">₹50</div>
                 </div>
-                <div class="bb-slots-label">Choose your barber</div>
-                <div class="bb-barbers">
-                  <div class="bb-barber sel">
-                    <div class="bb-barber-av">AK</div>
-                    <div class="bb-barber-name">Aryan</div>
-                  </div>
-                  <div class="bb-barber">
-                    <div class="bb-barber-av">RS</div>
-                    <div class="bb-barber-name">Rahul</div>
-                  </div>
-                  <div class="bb-barber">
-                    <div class="bb-barber-av">MS</div>
-                    <div class="bb-barber-name">Mohan</div>
-                  </div>
+                <div style="display:flex; justify-content:space-between; margin-top:16px; font-size:18px; font-weight:800; color:var(--text-dark);">
+                  <span>Total</span>
+                  <span>₹410</span>
                 </div>
-                <div class="bb-btn">Confirm Booking — 11:30</div>
-              </div>
-            </div>
-            <div class="phone-island"></div>
-            <div class="phone-home"></div>
-            <div class="phone-shine"></div>
-            </div>
-          </div>
-        </div>
- 
-        <!-- SLIDE 2: WhatsApp Delivery -->
-        <div class="phone-slide state-far-next" data-index="2">
-          <div class="phone-frame">
-            <div class="phone-btn-power"></div>
-            <div class="phone-btn-silent"></div>
-            <div class="phone-btn-vol-up"></div>
-            <div class="phone-btn-vol-dn"></div>
-            <div class="phone-bezel">
-            <div class="phone-screen">
-              <div class="phone-ui-delivery">
-                <div class="sc-statusbar" style="background:#fff;color:#aaa">
-                  <span class="sc-sb-time" style="color:#1a1a1a">9:41</span>
-                  <div class="sc-sb-icons"><span style="color:#1a1a1a">●●●</span><span style="color:#1a1a1a">🔋</span></div>
-                </div>
-                <div class="dl-map">
-                  <div class="dl-map-grid"></div>
-                  <div class="dl-pulse"></div>
-                  <div class="dl-pin">📍</div>
-                  <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 14px;background:rgba(255,255,255,.9);font-size:9px;font-weight:700;color:#1a1a1a;font-family:'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase">
-                    Delivery to your door
-                  </div>
-                </div>
-                <div class="dl-body">
-                  <div class="dl-status">
-                    <div class="dl-status-text">🛵 Order Confirmed!</div>
-                    <div class="dl-status-time">25 min</div>
-                  </div>
-                  <div class="dl-order-label">Your Order</div>
-                  <div class="dl-order-items">
-                    <div class="dl-oi">
-                      <div class="dl-oi-name"><div class="dl-oi-qty">2</div>Masala Dosa</div>
-                      <div class="dl-oi-price">₹160</div>
-                    </div>
-                    <div class="dl-oi">
-                      <div class="dl-oi-name"><div class="dl-oi-qty">1</div>Filter Coffee</div>
-                      <div class="dl-oi-price">₹40</div>
-                    </div>
-                  </div>
-                  <div class="dl-wa">💬 Track on WhatsApp</div>
+                <div class="ui-wa-btn">
+                  💬 Send Order to WhatsApp
                 </div>
               </div>
             </div>
-            <div class="phone-island"></div>
-            <div class="phone-home"></div>
-            <div class="phone-shine"></div>
-            </div>
           </div>
         </div>
- 
-        <!-- SLIDE 3: Café Menu -->
-        <div class="phone-slide state-far-prev" data-index="3">
-          <div class="phone-frame">
-            <div class="phone-btn-power"></div>
-            <div class="phone-btn-silent"></div>
-            <div class="phone-btn-vol-up"></div>
-            <div class="phone-btn-vol-dn"></div>
-            <div class="phone-bezel">
-            <div class="phone-screen">
-              <div class="phone-ui-cafe">
-                <div class="sc-statusbar" style="background:#1a1208;color:rgba(255,255,255,.3)">
-                  <span class="sc-sb-time">9:41</span>
-                  <div class="sc-sb-icons"><span>●●●</span><span>🔋</span></div>
-                </div>
-                <div class="cf-hero-img">
-                  <div class="cf-hero-name">BREWED<br/>BLISS CAFÉ</div>
-                </div>
-                <div class="cf-body">
-                  <div class="cf-label">Signature Drinks</div>
-                  <div class="cf-items">
-                    <div class="cf-item">
-                      <div class="cf-item-name">Cold Brew Classic</div>
-                      <div class="cf-item-price">₹120</div>
-                    </div>
-                    <div class="cf-item">
-                      <div class="cf-item-name">Hazelnut Latte</div>
-                      <div class="cf-item-price">₹140</div>
-                    </div>
-                    <div class="cf-item">
-                      <div class="cf-item-name">Matcha Iced</div>
-                      <div class="cf-item-price">₹150</div>
-                    </div>
-                  </div>
-                  <div class="cf-book">📅 Book a Table</div>
-                </div>
-              </div>
-            </div>
-            <div class="phone-island"></div>
-            <div class="phone-home"></div>
-            <div class="phone-shine"></div>
-            </div>
-          </div>
-        </div>
- 
-        <!-- SLIDE 4: Loyalty Card -->
-        <div class="phone-slide state-far-prev" data-index="4">
-          <div class="phone-frame">
-            <div class="phone-btn-power"></div>
-            <div class="phone-btn-silent"></div>
-            <div class="phone-btn-vol-up"></div>
-            <div class="phone-btn-vol-dn"></div>
-            <div class="phone-bezel">
-            <div class="phone-screen">
-              <div class="phone-ui-loyalty">
-                <div class="sc-statusbar" style="background:#c43d00;color:rgba(255,255,255,.6)">
-                  <span class="sc-sb-time">9:41</span>
-                  <div class="sc-sb-icons"><span>●●●</span><span>🔋</span></div>
-                </div>
-                <div class="ly-header">
-                  <div class="ly-tag">Digital Loyalty Card</div>
-                  <div class="ly-name">CHAI<br/>CORNER</div>
-                </div>
-                <div class="ly-body">
-                  <div class="ly-progress-label">Your stamps — 7 of 10</div>
-                  <div class="ly-stamps">
-                    <div class="ly-stamp filled"></div>
-                    <div class="ly-stamp filled"></div>
-                    <div class="ly-stamp filled"></div>
-                    <div class="ly-stamp filled"></div>
-                    <div class="ly-stamp filled"></div>
-                    <div class="ly-stamp filled"></div>
-                    <div class="ly-stamp filled"></div>
-                    <div class="ly-stamp"></div>
-                    <div class="ly-stamp"></div>
-                    <div class="ly-stamp"></div>
-                  </div>
-                  <div class="ly-reward">
-                    <div class="ly-reward-text">3 more visits for<br/>a FREE Chai ☕</div>
-                    <div class="ly-reward-badge">30% done</div>
-                  </div>
-                  <div style="background:#F5530A;border-radius:8px;padding:12px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:.06em;color:#fff;text-transform:uppercase">
-                    Scan to Stamp
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="phone-island"></div>
-            <div class="phone-home"></div>
-            <div class="phone-shine"></div>
-            </div>
-          </div>
-        </div>
- 
-      </div><!-- /phone-scene -->
- 
-      <!-- Dots -->
-      <div class="phone-dots">
-        <div class="phone-dot on" data-to="0"></div>
-        <div class="phone-dot" data-to="1"></div>
-        <div class="phone-dot" data-to="2"></div>
-        <div class="phone-dot" data-to="3"></div>
-        <div class="phone-dot" data-to="4"></div>
       </div>
-      <div class="phone-label" id="phoneLabel">Restaurant QR Menu</div>
-      <div class="swipe-hint">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
-        swipe to explore
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+
+      <!-- Slide 3: Doctor Appointment -->
+      <div class="phone-slide state-far-next" data-index="2">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="ui-base ui-doc">
+              <!-- Top Left/Right Structure -->
+              <div class="ui-status">
+                <span>9:41</span>
+                <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo" style="height: 18px; width: auto; object-fit: contain;"/>
+              </div>
+              <div class="phone-notch"></div>
+              
+              <div class="ui-doc-top">
+                <div class="ui-doc-av">👨‍⚕️</div>
+                <h3 style="color:var(--brand-teal);">Dr. Anil Sharma</h3>
+                <p style="font-size:12px; font-weight:600; color:var(--text-muted);">Pediatrician</p>
+              </div>
+              <div class="ui-doc-card">
+                <h4 style="margin-bottom:12px; font-size:14px;">Select Date</h4>
+                <div class="ui-cal-row">
+                  <div class="ui-cal-day">
+                    <div style="font-size:10px;">Mon</div>
+                    <div style="font-weight:700; font-size:18px;">12</div>
+                  </div>
+                  <div class="ui-cal-day active">
+                    <div style="font-size:10px;">Tue</div>
+                    <div style="font-weight:700; font-size:18px;">13</div>
+                  </div>
+                </div>
+                <h4 style="margin-bottom:12px; font-size:14px;">Available Slots</h4>
+                <div style="display:flex; gap:8px;">
+                  <div class="ui-doc-slot" style="flex:1;">10:00 AM</div>
+                  <div class="ui-doc-slot" style="flex:1; background:var(--brand-teal); color:#FFF;">10:30 AM</div>
+                </div>
+                <div style="background:var(--brand-teal); color:#FFF; padding:16px; border-radius:50px; text-align:center; font-weight:700; font-size:14px; margin-top:20px;">
+                  Confirm Consultation
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
- 
-    </div><!-- /hero-right -->
- 
-  </div><!-- /hero-main -->
- 
-  <!-- Bottom strip -->
-  <div class="hero-strip">
-    <div class="hs-item">
-      <div class="hs-icon">🌐</div>
-      <div class="hs-label">Websites</div>
-      <div class="hs-sub">For your business</div>
+
+      <!-- Slide 4: Fees Management (TTC Style) -->
+      <div class="phone-slide state-far-prev" data-index="3">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="ui-base ui-fees">
+              <!-- Top Left/Right Structure -->
+              <div class="ui-status">
+                <span>9:41</span>
+                <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo" style="height: 18px; width: auto; object-fit: contain;"/>
+              </div>
+              <div class="phone-notch"></div>
+              
+              <div class="ui-fees-head">
+                <h3 style="font-size:24px; color:var(--text-dark);">Fee Tracker</h3>
+                <p style="font-size:12px; font-weight:600; color:var(--text-dark); opacity:0.7;">Class 10 - Batch A</p>
+              </div>
+              <div class="ui-fees-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <div>
+                    <h4 style="font-size:16px; margin-bottom:4px;">Aarav Patil</h4>
+                    <div class="ui-fees-badge">Overdue</div>
+                  </div>
+                  <div style="width:40px; height:40px; border-radius:12px; background:var(--card-mint); display:flex; align-items:center; justify-content:center; font-size:18px;">🎓</div>
+                </div>
+                <div class="ui-fees-amt">₹4,500</div>
+                <p style="font-size:11px; color:var(--text-muted); font-weight:600;">Due Date: 15 May 2026</p>
+                
+                <div style="display:flex; gap:10px; margin-top:20px;">
+                  <div class="ui-fees-btn" style="flex:1; background:var(--brand-mint); color:var(--text-dark);">Mark Paid</div>
+                  <div class="ui-fees-btn" style="flex:1; background:var(--brand-orange);">💬 Reminder</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 5: 5-Star Review Generator -->
+      <div class="phone-slide state-prev" data-index="4">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="ui-base ui-rev">
+              <!-- Top Left/Right Structure -->
+              <div class="ui-status">
+                <span>9:41</span>
+                <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo" style="height: 18px; width: auto; object-fit: contain;"/>
+              </div>
+              <div class="phone-notch"></div>
+              
+              <div class="ui-rev-inner">
+                <div style="font-size:40px; margin-bottom:16px;">🎉</div>
+                <h3 style="font-size:24px; color:var(--brand-teal); margin-bottom:8px;">How was your visit?</h3>
+                <p style="font-size:12px; font-weight:500; color:var(--text-muted);">Tap a star to rate us!</p>
+                <div class="ui-stars">
+                  <span style="color:var(--brand-orange);">★</span>
+                  <span style="color:var(--brand-orange);">★</span>
+                  <span style="color:var(--brand-orange);">★</span>
+                  <span style="color:var(--brand-orange);">★</span>
+                  <span style="color:var(--brand-orange);">★</span>
+                </div>
+                <div class="ui-rev-btn">
+                  ⭐ Post on Google Maps
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="hs-item">
-      <div class="hs-icon">📱</div>
-      <div class="hs-label">QR Menus</div>
-      <div class="hs-sub">Scan & order</div>
-    </div>
-    <div class="hs-item">
-      <div class="hs-icon">🛵</div>
-      <div class="hs-label">WhatsApp Orders</div>
-      <div class="hs-sub">Direct delivery</div>
-    </div>
-    <div class="hs-item">
-      <div class="hs-icon">✂️</div>
-      <div class="hs-label">Bookings</div>
-      <div class="hs-sub">Barbers & salons</div>
+    
+    <!-- Controls positioned absolute inside showcase -->
+    <div style="position:absolute; bottom:-30px; left:0; right:0;">
+      <div class="slide-label" id="slideLabel">Owner Dashboard</div>
+      <div class="controls">
+        <div class="dot active" data-to="0"></div>
+        <div class="dot" data-to="1"></div>
+        <div class="dot" data-to="2"></div>
+        <div class="dot" data-to="3"></div>
+        <div class="dot" data-to="4"></div>
+      </div>
     </div>
   </div>
 </section>
- 
-<!-- ── MARQUEE ─────────────────────────────────────── -->
-<div class="mq">
-  <div class="mq-track">
-    <div class="mi on">Websites <span class="mi-dot"></span></div>
-    <div class="mi">QR Menus <span class="mi-dot"></span></div>
-    <div class="mi on">WhatsApp Delivery <span class="mi-dot"></span></div>
-    <div class="mi">Booking Systems <span class="mi-dot"></span></div>
-    <div class="mi on">Local SEO <span class="mi-dot"></span></div>
-    <div class="mi">Social Media <span class="mi-dot"></span></div>
-    <div class="mi on">Google Profiles <span class="mi-dot"></span></div>
-    <div class="mi">Loyalty Cards <span class="mi-dot"></span></div>
-    <div class="mi on">Websites <span class="mi-dot"></span></div>
-    <div class="mi">QR Menus <span class="mi-dot"></span></div>
-    <div class="mi on">WhatsApp Delivery <span class="mi-dot"></span></div>
-    <div class="mi">Booking Systems <span class="mi-dot"></span></div>
-    <div class="mi on">Local SEO <span class="mi-dot"></span></div>
-    <div class="mi">Social Media <span class="mi-dot"></span></div>
-    <div class="mi on">Google Profiles <span class="mi-dot"></span></div>
-    <div class="mi">Loyalty Cards <span class="mi-dot"></span></div>
+
+<!-- Floating Metrics Strip -->
+<section id="metrics">
+  <div class="metric-card">
+    <div class="progress-ring"><div class="pr-inner">80%</div></div>
+    <div class="metric-text">
+      <h4>More Orders</h4>
+      <p>Direct to your WhatsApp</p>
+    </div>
   </div>
-</div>
- 
-<!-- ── SERVICES ───────────────────────────────────── -->
+  <div class="metric-card">
+    <div class="progress-ring" style="background: conic-gradient(var(--brand-orange) 100%, #F0E8E2 0);"><div class="pr-inner">0%</div></div>
+    <div class="metric-text">
+      <h4>Commissions</h4>
+      <p>You keep all profits</p>
+    </div>
+  </div>
+  <div class="metric-card">
+    <div class="progress-ring" style="background: conic-gradient(var(--brand-purple) 95%, #F0E8E2 0);"><div class="pr-inner">24/7</div></div>
+    <div class="metric-text">
+      <h4>Automated</h4>
+      <p>Bookings while you sleep</p>
+    </div>
+  </div>
+</section>
+
+<!-- Chunky Services Grid -->
 <section id="services">
- 
-  <div class="svc-list">
- 
-    <div class="svc-row r">
-      <div class="sr-num">01</div>
-      <div class="sr-body">
-        <div class="sr-name">Business Websites</div>
-        <div class="sr-desc">Beautiful, fast, mobile-ready websites that make your shop look professional and trustworthy from day one. SEO-optimised so local customers find you on Google.</div>
-        <div class="sr-tags"><span class="sr-tag">Design</span><span class="sr-tag">Development</span><span class="sr-tag">SEO</span><span class="sr-tag">Mobile</span></div>
+  <div class="sec-head">
+    <h2 class="sec-title">Everything you need. Made easy.</h2>
+    <p class="sec-sub">We build and manage these tools for you, so you can focus on making your customers happy.</p>
+  </div>
+
+  <div class="bento-grid">
+    <div class="chunky-card card-1">
+      <div>
+        <div class="cc-icon">🌐</div>
+        <h3 class="cc-title">High-Ranking Websites</h3>
+        <p class="cc-desc">A beautiful online home for your shop. We optimize it so you show up first on Google when locals search for your services.</p>
       </div>
-      <div class="sr-arrow">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
-      </div>
+      <a href="#contact" class="btn-chunky">Get a Website</a>
     </div>
- 
-    <div class="svc-row r d1">
-      <div class="sr-num">02</div>
-      <div class="sr-body">
-        <div class="sr-name">QR Menus & Restaurant Systems</div>
-        <div class="sr-desc">Customers scan, browse your menu, book a table, and even place orders — all from their phone. No app, no friction, just revenue.</div>
-        <div class="sr-tags"><span class="sr-tag">QR Code</span><span class="sr-tag">Ordering</span><span class="sr-tag">Table Booking</span></div>
+
+    <div class="chunky-card card-2">
+      <div>
+        <div class="cc-icon">💬</div>
+        <h3 class="cc-title">WhatsApp Ordering</h3>
+        <p class="cc-desc">Stop paying Swiggy and Zomato 30%. Customers browse your digital menu and send orders directly to your WhatsApp.</p>
       </div>
-      <div class="sr-arrow">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
-      </div>
+      <a href="#contact" class="btn-chunky">Set up Menu</a>
     </div>
- 
-    <div class="svc-row r d2">
-      <div class="sr-num">03</div>
-      <div class="sr-body">
-        <div class="sr-name">WhatsApp Delivery System</div>
-        <div class="sr-desc">Customer orders on your website — a WhatsApp message lands straight on your phone. You handle delivery. Zero apps, zero complexity.</div>
-        <div class="sr-tags"><span class="sr-tag">WhatsApp</span><span class="sr-tag">Delivery</span><span class="sr-tag">Local Stalls</span></div>
+
+    <div class="chunky-card card-3">
+      <div>
+        <div class="cc-icon">📅</div>
+        <h3 class="cc-title">Smart Appointments & Fees</h3>
+        <p class="cc-desc">Perfect for clinics, salons, and tuitions. Let customers book online 24/7 and track pending payments easily.</p>
       </div>
-      <div class="sr-arrow">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
-      </div>
+      <a href="#contact" class="btn-chunky">Automate Systems</a>
     </div>
- 
-    <div class="svc-row r d3">
-      <div class="sr-num">04</div>
-      <div class="sr-body">
-        <div class="sr-name">Barber & Salon Booking</div>
-        <div class="sr-desc">Customers book their slot online, you get notified. No double bookings, no missed calls, no chaos on weekends.</div>
-        <div class="sr-tags"><span class="sr-tag">Appointments</span><span class="sr-tag">Barbershops</span><span class="sr-tag">Salons</span></div>
+
+    <div class="chunky-card card-4">
+      <div>
+        <div class="cc-icon">⭐</div>
+        <h3 class="cc-title">Google Reviews Gen</h3>
+        <p class="cc-desc">Filter angry feedback privately to you, and push happy customers directly to your Google Maps to leave 5-star reviews.</p>
       </div>
-      <div class="sr-arrow">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
-      </div>
+      <a href="#contact" class="btn-chunky">Boost Reviews</a>
     </div>
- 
-    <div class="svc-row r d4">
-      <div class="sr-num">05</div>
-      <div class="sr-body">
-        <div class="sr-name">Google Business & Local SEO</div>
-        <div class="sr-desc">Get found when people search "near me." We set up and optimise your Google Business profile so you appear first locally.</div>
-        <div class="sr-tags"><span class="sr-tag">Google</span><span class="sr-tag">Local SEO</span><span class="sr-tag">Maps</span></div>
-      </div>
-      <div class="sr-arrow">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
-      </div>
-    </div>
- 
-    <div class="svc-row r d5">
-      <div class="sr-num">06</div>
-      <div class="sr-body">
-        <div class="sr-name">Social Media & Loyalty Cards</div>
-        <div class="sr-desc">Eye-catching content for Instagram, Facebook and WhatsApp Status — plus digital loyalty stamp cards that bring customers back again and again.</div>
-        <div class="sr-tags"><span class="sr-tag">Instagram</span><span class="sr-tag">Reels</span><span class="sr-tag">Loyalty</span><span class="sr-tag">Retention</span></div>
-      </div>
-      <div class="sr-arrow">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
-      </div>
-    </div>
- 
   </div>
 </section>
- 
-<!-- ── STATS ───────────────────────────────────────── -->
-<div id="stats">
-  <div class="stat-item r">
-    <div class="stat-num"><sup>↑</sup><span id="s1">3</span>×</div>
-    <div class="stat-label">Avg. visibility boost</div>
+
+<!-- Process Stepper -->
+<section id="process">
+  <div class="sec-head">
+    <h2 class="sec-title">Live in 3 Days.</h2>
+    <p class="sec-sub">No coding, no servers, no stress. We do the heavy lifting using lightweight tools.</p>
   </div>
-  <div class="stat-item r d1">
-    <div class="stat-num"><span id="s2">7</span><sup>+</sup></div>
-    <div class="stat-label">Digital services</div>
-  </div>
-  <div class="stat-item r d2">
-    <div class="stat-num"><span id="s3">3</span>–7<sup>d</sup></div>
-    <div class="stat-label">Launch turnaround</div>
-  </div>
-  <div class="stat-item r d3">
-    <div class="stat-num"><span id="s4">0</span><sup>%</sup></div>
-    <div class="stat-label">Hidden fees. Ever.</div>
-  </div>
-</div>
- 
-<!-- ── HOW IT WORKS ───────────────────────────────── -->
-<section id="how">
-  <div class="label r">The Process</div>
-  <h2 class="sec-title r d1">CHAT TO<br/>LIVE IN<br/>DAYS.</h2>
- 
-  <div class="how-grid">
-    <div class="how-steps r d1">
-      <div class="hw">
-        <div class="hw-n">01</div>
-        <div>
-          <div class="hw-title">Tell Us About Your Business</div>
-          <div class="hw-desc">A quick chat — WhatsApp or in-person. We understand your shop, goals, and which solution fits best.</div>
-        </div>
-      </div>
-      <div class="hw">
-        <div class="hw-n">02</div>
-        <div>
-          <div class="hw-title">We Build It For You</div>
-          <div class="hw-desc">Design, development, setup — all handled. You just approve and give feedback. No tech knowledge needed.</div>
-        </div>
-      </div>
-      <div class="hw">
-        <div class="hw-n">03</div>
-        <div>
-          <div class="hw-title">Review & Go Live</div>
-          <div class="hw-desc">We walk you through everything, make tweaks, and launch your digital presence live to the world.</div>
-        </div>
-      </div>
-      <div class="hw">
-        <div class="hw-n">04</div>
-        <div>
-          <div class="hw-title">Grow & Scale</div>
-          <div class="hw-desc">More features, more reach, more customers — we stay with you as your business grows.</div>
-        </div>
+
+  <div class="process-container">
+    <div class="process-card">
+      <div class="pc-node">1</div>
+      <div class="pc-content">
+        <h3>Quick Chat</h3>
+        <p>Drop us a message on WhatsApp. Send over your menu, pricing, and logo. We'll recommend the best tools for your specific shop type.</p>
       </div>
     </div>
- 
-    <div class="how-right-panel r d2">
-      <div class="hrp-glow"></div>
-      <div class="hrp-label">Average result</div>
-      <div class="hrp-big">3×<br/><span>More</span><br/>Customers</div>
-      <div class="hrp-list">
-        <div class="hrp-li"><div class="hrp-li-dot"></div><div class="hrp-li-text">Live in 3–7 days, not months</div></div>
-        <div class="hrp-li"><div class="hrp-li-dot"></div><div class="hrp-li-text">WhatsApp-first support, always</div></div>
-        <div class="hrp-li"><div class="hrp-li-dot"></div><div class="hrp-li-text">Small business budget pricing</div></div>
-        <div class="hrp-li"><div class="hrp-li-dot"></div><div class="hrp-li-text">Zero hidden fees, ever</div></div>
+    
+    <div class="process-card">
+      <div class="pc-node" style="background:var(--brand-mint);">2</div>
+      <div class="pc-content">
+        <h3>We Build It</h3>
+        <p>Our team designs your website, sets up your booking links, and connects your WhatsApp routing. You just sit back and review it.</p>
+      </div>
+    </div>
+    
+    <div class="process-card">
+      <div class="pc-node" style="background:var(--brand-purple);">3</div>
+      <div class="pc-content">
+        <h3>Start Earning</h3>
+        <p>We hand over the keys. Share the link on Instagram, stick the QR code on your tables, and watch the direct orders flow in.</p>
       </div>
     </div>
   </div>
 </section>
- 
-<!-- ── WHY ─────────────────────────────────────────── -->
-<section id="why">
-  <div class="why-inner">
-    <div class="why-left">
-      <div class="label r">Why Seen & Sold</div>
-      <h2 class="sec-title r d1">BUILT FOR<br/>LOCAL.<br/>PERIOD.</h2>
-      <p class="sec-sub r d2">We're not a corporate agency. We understand the street shop, the local diner, the neighbourhood barber — because that's exactly who we built this for.</p>
-    </div>
-    <div class="why-right r d2">
-      <div class="wr">
-        <div class="wr-icon">⚡</div>
-        <div>
-          <div class="wr-title">Fast Delivery</div>
-          <div class="wr-desc">Most projects go live in 3–7 days. Not 3 months. We move at your pace.</div>
-        </div>
-      </div>
-      <div class="wr">
-        <div class="wr-icon">💬</div>
-        <div>
-          <div class="wr-title">WhatsApp-First Support</div>
-          <div class="wr-desc">Reach us the way you're comfortable. No tickets, no waiting, no nonsense.</div>
-        </div>
-      </div>
-      <div class="wr">
-        <div class="wr-icon">💸</div>
-        <div>
-          <div class="wr-title">Honestly Priced</div>
-          <div class="wr-desc">Designed for small business budgets. No hidden fees, no confusing invoices. Ever.</div>
-        </div>
-      </div>
-      <div class="wr">
-        <div class="wr-icon">🤝</div>
-        <div>
-          <div class="wr-title">We Stay With You</div>
-          <div class="wr-desc">Launch is just the beginning. We're here as your business grows and needs evolve.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
- 
-<!-- ── TESTIMONIALS ───────────────────────────────── -->
-<section id="testimonials">
-  <div class="test-header">
+
+<!-- Friendly Contact Form -->
+<section id="contact">
+  <div class="contact-wrap">
     <div>
-      <div class="label r">Stories</div>
-      <h2 class="sec-title r d1">ALREADY<br/>WINNING.</h2>
-    </div>
-    <p class="sec-sub r d2" style="margin-top:0">Real results from local shops and stalls just like yours.</p>
-  </div>
- 
-  <div class="test-row r d1">
-    <div class="tc">
-      <div class="tc-stars">★★★★★</div>
-      <div class="tc-quote">"</div>
-      <p class="tc-text">Before Seen & Sold, nobody knew we did home delivery. Now I get 15–20 WhatsApp orders a day through the website. It literally changed everything for my stall.</p>
-      <div class="tc-author">
-        <div class="tc-av">RK</div>
+      <h2 class="sec-title" style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 20px;">Let's set up your shop.</h2>
+      <p class="sec-sub" style="font-size: 1.2rem; margin-bottom: 40px; font-weight: 500;">Fill out this quick form. It instantly sends a neat ticket to our WhatsApp, and we'll reply right away.</p>
+      
+      <div style="display:flex; gap:20px; align-items:center; background:rgba(255,255,255,0.1); padding:20px; border-radius:24px;">
+        <div style="width:60px; height:60px; background:#FFF; color:var(--brand-teal); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:800;">⚡</div>
         <div>
-          <div class="tc-name">Ravi Kumar</div>
-          <div class="tc-role">Tiffin Stall Owner</div>
+          <div style="font-weight:700; font-size:1.2rem; color:#FFF;">Fast Turnaround</div>
+          <div style="color:rgba(255,255,255,0.8); font-weight:500;">Average 72 hours to launch</div>
         </div>
       </div>
     </div>
-    <div class="tc">
-      <div class="tc-stars">★★★★★</div>
-      <div class="tc-quote">"</div>
-      <p class="tc-text">My café's QR menu was done in 4 days. Customers love scanning it and the table booking has made weekends so much smoother.</p>
-      <div class="tc-author">
-        <div class="tc-av">SA</div>
-        <div>
-          <div class="tc-name">Sara Ahmed</div>
-          <div class="tc-role">Café Owner</div>
+
+    <div class="form-card">
+      <form id="leadForm">
+        <h3 style="color:var(--text-dark); margin-bottom: 32px; font-size: 1.8rem; text-align:center;">Get a Proposal</h3>
+        
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" id="tf_name" class="form-input" placeholder="e.g. Rahul Sharma" required>
         </div>
-      </div>
-    </div>
-    <div class="tc">
-      <div class="tc-stars">★★★★★</div>
-      <div class="tc-quote">"</div>
-      <p class="tc-text">My barbershop finally has online booking. No missed calls, customers book at midnight for next morning. Game changer.</p>
-      <div class="tc-author">
-        <div class="tc-av">AM</div>
-        <div>
-          <div class="tc-name">Aryan Mehta</div>
-          <div class="tc-role">Barbershop Owner</div>
+        
+        <div class="form-group">
+          <label class="form-label">Business Type</label>
+          <select id="tf_type" class="form-input" required>
+            <option value="" disabled selected>Select category...</option>
+            <option value="Restaurant/Cafe">Restaurant or Food Stall</option>
+            <option value="Clinic/Doctor">Clinic / Doctor</option>
+            <option value="Tuition/Admin">Tuition Center</option>
+            <option value="Salon/Barber">Salon or Barbershop</option>
+            <option value="Retail">Retail Store</option>
+            <option value="Other">Other Service</option>
+          </select>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
- 
-<!-- ── CTA ─────────────────────────────────────────── -->
-<section id="cta">
-  <div class="cta-glow"></div>
-  <div class="cta-glow2"></div>
-  <div class="cta-inner">
-    <div class="cta-tag r">Free First Consultation</div>
-    <h2 class="cta-title r d1">
-      READY<br/>
-      TO BE<br/>
-      <span class="fire">SEEN</span><br/>
-      <span class="outline">&amp; SOLD?</span>
-    </h2>
-    <div class="cta-row r d2">
-      <a href="https://wa.me/919975454450?text=Hi!+I+found+Seen+%26+Sold+and+I%27d+love+to+grow+my+business." class="btn-cta-fire" target="_blank">
-        💬 Chat on WhatsApp
-      </a>
-      <a href="/cdn-cgi/l/email-protection#8ee6ebe2e2e1cefdebebe0efe0eafde1e2eafde1e2fbfae7e1e0fda0ede1e3" class="btn-cta-ghost">
-        ✉️ Send an Email
-      </a>
+        
+        <div class="form-group">
+          <label class="form-label">What do you need?</label>
+          <select id="tf_goal" class="form-input" required>
+            <option value="" disabled selected>Choose your goal...</option>
+            <option value="Direct Orders">Take WA Orders (No Swiggy)</option>
+            <option value="Bookings">Automate Appointments/Fees</option>
+            <option value="Reviews">Generate 5-Star Reviews</option>
+            <option value="Visibility">Rank on Google / Website</option>
+          </select>
+        </div>
+        
+        <button type="submit" class="btn-submit" style="margin-top:16px;">Chat on WhatsApp ↗</button>
+      </form>
     </div>
   </div>
 </section>
- 
-<!-- ── FOOTER ──────────────────────────────────────── -->
+
+<!-- Footer -->
 <footer>
-  <div class="ft">
-    <div class="ft-brand">
-      <a href="#" class="ft-logo">
-        <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Seen & Sold" style="height:36px;width:auto;object-fit:contain;filter:brightness(0) invert(1);"/>
-      </a>
-      <p class="ft-tagline">Making local shops and business owners get the attention and customers they truly deserve.</p>
-      <div class="ft-socials">
-        <a href="#" class="ft-s">📸</a>
-        <a href="#" class="ft-s">💬</a>
-        <a href="#" class="ft-s">𝕏</a>
-        <a href="#" class="ft-s">in</a>
-      </div>
-    </div>
-    <div class="ft-col">
-      <div class="ft-col-head">Services</div>
-      <ul class="ft-links">
-        <li><a href="#">Business Websites</a></li>
-        <li><a href="#">QR Menus</a></li>
-        <li><a href="#">WhatsApp Delivery</a></li>
-        <li><a href="#">Booking Systems</a></li>
-        <li><a href="#">Local SEO</a></li>
-        <li><a href="#">Social Media</a></li>
-        <li><a href="#">Loyalty Cards</a></li>
-      </ul>
-    </div>
-    <div class="ft-col">
-      <div class="ft-col-head">Company</div>
-      <ul class="ft-links">
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">How It Works</a></li>
-        <li><a href="#">Portfolio</a></li>
-        <li><a href="#">Pricing</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </div>
-    <div class="ft-col">
-      <div class="ft-col-head">Get In Touch</div>
-      <ul class="ft-links">
-        <li><a href="#">WhatsApp Us</a></li>
-        <li><a href="#"><span class="__cf_email__" data-cfemail="472f222b2b28073422222926292334282b2334282b32332e2829346924282a">[email&#160;protected]</span></a></li>
-        <li><a href="#">Book a Free Call</a></li>
-      </ul>
-    </div>
+  <a href="#" class="ft-logo">
+    <img src="https://i.postimg.cc/d05KQh6Q/Remove-background-project-(1).png" alt="Logo"/>
+    <span class="logo-text">Seen<span>&amp;</span>Sold</span>
+  </a>
+  <div class="ft-links">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="https://wa.me/919975454450" target="_blank">WhatsApp Us</a>
   </div>
-  <div class="ft-bar">
-    <span class="ft-copy">© 2025 Seen & Sold. All rights reserved.</span>
-    <span class="ft-made">Made with <span>♥</span> for local businesses</span>
+  <div class="ft-copy">
+    &copy; 2026 Seen & Sold Tech. Built for local shops everywhere.
   </div>
 </footer>
- 
+
 <script>
-// Nav
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('bg',scrollY>10));
- 
-// Reveal
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.1});
-document.querySelectorAll('.r').forEach(el=>obs.observe(el));
- 
-// ── 3D Phone Carousel ─────────────────────────────────
+// --- Navigation Scroll Effect ---
+const navWrap = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 20) {
+    navWrap.style.boxShadow = '0 10px 25px rgba(25, 88, 104, 0.1)';
+    navWrap.style.border = '2px solid transparent';
+  } else {
+    navWrap.style.boxShadow = 'var(--shadow-soft)';
+    navWrap.style.border = '2px solid rgba(255,255,255,0.5)';
+  }
+});
+
+// --- Mobile Menu Logic ---
+const hamBtn = document.getElementById('hamBtn');
+const mobMenu = document.getElementById('mobNav');
+const mobLinks = document.querySelectorAll('.mob-link');
+
+function toggleMobileNav() {
+  hamBtn.classList.toggle('open');
+  mobMenu.classList.toggle('open');
+  document.body.style.overflow = mobMenu.classList.contains('open') ? 'hidden' : '';
+}
+
+hamBtn.addEventListener('click', toggleMobileNav);
+mobLinks.forEach(link => {
+  link.addEventListener('click', toggleMobileNav);
+});
+
+// --- 3D Carousel Logic (Infinite Loop for exactly 5 items) ---
 const labels = [
-  'Restaurant QR Menu',
-  'Barber Booking',
-  'WhatsApp Delivery',
-  'Café Table Menu',
-  'Digital Loyalty Card'
+  'Owner Dashboard', 
+  'WhatsApp Cart & Orders', 
+  'Doctor Appointments', 
+  'Student Fee Tracker', 
+  '5-Star Review Generator'
 ];
-const slides  = Array.from(document.querySelectorAll('.phone-slide'));
-const dotEls  = Array.from(document.querySelectorAll('.phone-dot'));
-const labelEl = document.getElementById('phoneLabel');
-let current = 0;
-const total  = slides.length;
-const STATES  = ['state-far-prev','state-prev','state-active','state-next','state-far-next'];
- 
-function getState(slideIdx, activeIdx) {
-  let diff = slideIdx - activeIdx;
-  if (diff >  2) diff -= total;
-  if (diff < -2) diff += total;
-  diff = Math.max(-2, Math.min(2, diff));
-  return STATES[diff + 2];
+const slides = Array.from(document.querySelectorAll('.phone-slide'));
+const dots = Array.from(document.querySelectorAll('.dot'));
+const labelEl = document.getElementById('slideLabel');
+let currentSlide = 0;
+
+function updateCarousel(index) {
+  // Ensure the index wraps properly between 0 and 4
+  currentSlide = ((index % 5) + 5) % 5;
+  
+  slides.forEach((slide, i) => {
+    slide.className = 'phone-slide'; // reset class
+    
+    // Calculate difference to find relative position
+    let diff = i - currentSlide;
+    
+    // Adjust for 5-item circular wrap-around
+    if (diff < -2) diff += 5;
+    if (diff > 2) diff -= 5;
+
+    // Apply exact classes based on the clean diff
+    if (diff === 0) slide.classList.add('state-active');
+    else if (diff === 1) slide.classList.add('state-next');
+    else if (diff === -1) slide.classList.add('state-prev');
+    else if (diff === 2) slide.classList.add('state-far-next'); 
+    else if (diff === -2) slide.classList.add('state-far-prev'); 
+  });
+
+  // Update dots and label
+  dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+  if (labelEl) labelEl.textContent = labels[currentSlide];
 }
- 
-function goTo(idx) {
-  current = ((idx % total) + total) % total;
-  slides.forEach((s,i) => { s.className = 'phone-slide ' + getState(i, current); });
-  dotEls.forEach((d,i) => d.classList.toggle('on', i === current));
-  labelEl.textContent = labels[current];
-}
- 
-dotEls.forEach(d => d.addEventListener('click', () => { clearInterval(autoTimer); goTo(+d.dataset.to); }));
- 
-// Drag / Swipe
+
+dots.forEach((dot, i) => {
+  dot.addEventListener('click', () => {
+    clearInterval(autoAdvance);
+    updateCarousel(i);
+  });
+});
+
+let autoAdvance = setInterval(() => updateCarousel(currentSlide + 1), 3500);
+
+// Swipe Logic for Carousel
 const scene = document.getElementById('phoneScene');
-let dragStartX = null, isDragging = false;
- 
-function dragStart(x) { dragStartX = x; isDragging = true; }
-function dragEnd(x) {
-  if (!isDragging || dragStartX === null) return;
-  const delta = x - dragStartX;
-  if (Math.abs(delta) > 40) { clearInterval(autoTimer); goTo(delta < 0 ? current + 1 : current - 1); }
-  dragStartX = null; isDragging = false;
-}
- 
-scene.addEventListener('mousedown',  e => dragStart(e.clientX));
-window.addEventListener('mouseup',   e => { if(isDragging) dragEnd(e.clientX); });
-scene.addEventListener('touchstart', e => dragStart(e.touches[0].clientX), {passive:true});
-scene.addEventListener('touchend',   e => dragEnd(e.changedTouches[0].clientX));
- 
-// Auto-advance
-let autoTimer = setInterval(() => goTo(current + 1), 3500);
+let startX = 0; let isDragging = false;
+scene.addEventListener('mousedown', e => { startX = e.clientX; isDragging = true; });
+window.addEventListener('mouseup', e => {
+  if (!isDragging) return;
+  let diff = e.clientX - startX;
+  if (Math.abs(diff) > 40) { clearInterval(autoAdvance); updateCarousel(diff < 0 ? currentSlide + 1 : currentSlide - 1); }
+  isDragging = false;
+});
+scene.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+scene.addEventListener('touchend', e => {
+  let diff = e.changedTouches[0].clientX - startX;
+  if (Math.abs(diff) > 40) { clearInterval(autoAdvance); updateCarousel(diff < 0 ? currentSlide + 1 : currentSlide - 1); }
+});
+
+// --- Form Submit (WhatsApp Routing) ---
+document.getElementById('leadForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('tf_name').value;
+  const type = document.getElementById('tf_type').value;
+  const goal = document.getElementById('tf_goal').value;
+
+  const msg = `*Hey Seen & Sold! 👋*\n\nI want to grow my business.\n\n*My Name:* ${name}\n*Business:* ${type}\n*I want to:* ${goal}\n\nCan I get a proposal?`;
+  const waUrl = `https://wa.me/919975454450?text=${encodeURIComponent(msg)}`;
+  window.open(waUrl, '_blank');
+});
 </script>
 </body>
 </html>
